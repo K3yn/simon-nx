@@ -14,7 +14,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <time.h>
 
-#include "mydebug.h"
+
 #include "SDL_helper.h"
 #include "simon_touch.h"
 #include "simon_helper.h"
