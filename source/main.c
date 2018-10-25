@@ -511,6 +511,14 @@ void manejaControles()
 		}
 		else if(modo_juego)
 		{	
+			if(game50)
+			{
+				if(kUp & KEY_B){
+					modo_highScores=false;
+					modo_menuMain=true;
+				}
+			}
+			
 			if(selectorModo)
 			{
 				// Si se pulsa abajo
