@@ -29,4 +29,4 @@ Controls :
 Changelog :
 v0.1
 	- Initial Release.
-
+	- atm only playable easy level
