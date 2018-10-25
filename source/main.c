@@ -1101,7 +1101,7 @@ int main(int argc, char **argv)
 		generaSaveGame();
 		leeSaveGame();
 	}
-	getUserInfo(0); 
+	getUserInfo(); 
 	load_textures();
 
 	saved_selector = contMenuMain;
