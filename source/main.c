@@ -1103,7 +1103,7 @@ int main(int argc, char **argv)
 	}
 	getUserInfo(); 
 	load_textures();
-
+	load_fonts();
 	saved_selector = contMenuMain;
 	data_changed = false;
 
