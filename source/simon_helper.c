@@ -80,3 +80,4 @@ void turnONcolor(char color){
 		default:
 			break;	
 	}
+}
