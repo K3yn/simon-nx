@@ -53,3 +53,12 @@ int leeSaveGame(){
 
 	return t;
 }
+void saveNewHighscore(){
+		
+		FILE* save = fopen(filename, "wb");
+		if (save)
+		{ 
+			fwrite(highscore, sizeof(u16), 3, save);
+			fwrite(namePlayer, sizeof(u64), 4, save);
+		}
+}
