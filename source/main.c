@@ -423,7 +423,7 @@ void manejaControles()
 					modo_color_random=true;
 					playSound('A');
 				}
-				else if((kUp & KEY_A) && (contMenuModos==1))//
+				else if((kUp & KEY_A) && (contMenuModos==2))//
 				{
 					playSound('A');
 					selectorModo=false;
@@ -514,7 +514,7 @@ void manejaControles()
 					blue[0]=495;blue[1]=532;blue[2]=790;blue[3]=645;//blue
 					yellow[0]=340;yellow[1]=220;yellow[2]=475;yellow[3]=490;//
 					red[0]=800;red[1]=220;red[2]=940;red[3]=500;//
-					// Al PRESIONAR LAS TECLAS
+					// 
 					if(kDown & KEY_X){
 						color='G';
 						playSound('G');
@@ -531,7 +531,7 @@ void manejaControles()
 						color='B';
 						playSound('B');
 					}
-					// al soltar la tecla
+					//
 					if(kUp & KEY_X){
 						color=' ';
 						if(arrayColores[contadorPlayer]=='G'){
@@ -610,8 +610,7 @@ void manejaControles()
 						modo_game_over=true;
 					}
 				}
-				// SALIMOS
-				else if(kDown & KEY_L){
+				else if(kDown & KEY_L){// SALIMOS
 					fcGameOver();limpiaArrayColores();
 				}
 				}
@@ -647,6 +646,10 @@ void manejaControles()
 							}
 						}
 					}
+					// KEYS	
+					if(kUp & KEY_L){//
+					fcGameOver();
+					}				
 				}
 				else if(game80)
 				{
@@ -746,12 +749,12 @@ void manejaControles()
 							}
 						}				
 					}
+					//Salir
+					if(kUp & KEY_L){
+					fcGameOver();
+					}					
 				}				
-				//
-				if(kUp & KEY_TOUCH)
-				{
-				color=' ';
-				}			
+				//		
 				if (kDown & KEY_TOUCH)
 				{
 					if (inBox(Stylus, green[0], green[1], green[2], green[3]))//green
@@ -844,9 +847,13 @@ void manejaControles()
 					}
 					
 				}
+				if(kUp & KEY_TOUCH)
+				{
+				color=' ';
+				}
 				if(kUp & KEY_L){
 				fcGameOver();
-				}
+				}			
 			}
 			if(game)
 			{
