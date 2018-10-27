@@ -27,16 +27,8 @@ u32 kUp;
 u8 contMenuMain;//
 u8 contMenuModos;//
 u8 saved_selector;
-u16 green[4];
-u16 red[4];
-u16 yellow[4];
-u16 blue[4];
-u16 pink[4];
-u16 orange[4];
-u16 violet[4];
-u16 cyan[4];
-bool modo_menuMain;
 
+bool modo_menuMain;
 bool modo_juego;
 bool selectorModo;
 bool game;
