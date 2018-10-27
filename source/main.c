@@ -505,16 +505,17 @@ void manejaControles()
 			if ((kDown & KEY_TOUCH && inBox(Stylus, 505, 65, 785, 200)))//green
 			{
 				newContMenuMain=0;
-				playSound('N');
+				
 				if (contMenuMain == newContMenuMain)
 				{
 					modo_menuMain=false;
 					modo_juego=true;
 					selectorModo=true;
-					//modo_color_random=true;
+					playSound('A');
 				}
 				else
 				{
+					playSound('N');
 					contMenuMain = newContMenuMain;
 				}
 			}// salir
