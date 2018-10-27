@@ -344,7 +344,7 @@ void manejaControles()
 					playSound('N');
 					contMenuMain = newContMenuMain;
 				}
-			}// salir
+			}
 			else if ((kDown & KEY_TOUCH && inBox(Stylus, 800, 220, 940, 500)))//red
 			{
 				newContMenuMain=1;
@@ -353,14 +353,13 @@ void manejaControles()
 				{
 					playSound('N');
 					salir=true;
-
 				}
 				else
 				{
 					playSound('X');
 					contMenuMain = newContMenuMain;
 				}
-			}// creditos
+			}
 			else if ((kDown & KEY_TOUCH && inBox(Stylus, 340, 220, 480, 500)))//yellow
 			{
 				newContMenuMain=2;
@@ -398,14 +397,8 @@ void manejaControles()
 		{
 			if(selectorModo)
 			{
-				// Si se pulsa abajo
-				if (kDown & KEY_DOWN)
-				{
-					//contMenuModos = 2;
-					//playSound('N');
-				}
-				// Si se pulsa arriba 
-				else if (kDown & KEY_UP)
+				if (kDown & KEY_DOWN){}// 
+				else if (kDown & KEY_UP)//
 				{
 					contMenuModos = 0;
 					playSound('N');
