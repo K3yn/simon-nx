@@ -137,7 +137,6 @@ void secuenciaColores(){
 	vecesSecuencia++;
 }
 void fcGameOver(){
-	SDL_Delay(2000);//
 	modo_color_random=false;
 	modo_menuMain=true;
 	modo_juego=false;
@@ -1038,32 +1037,9 @@ void manejaControles()
 					}
 					
 				}
-				//Salir
-				if(kUp & KEY_B && !game40){
-				game50=false;
-				game80=false;
-				modo_menuMain=true;
+				if(kUp & KEY_L){
+				fcGameOver();
 				}
-				// salir tactil
-				if ((kDown & KEY_TOUCH && inBox(Stylus, 900, 220, 1101, 500) && !game))//red
-				{
-					if (!activarBoton)
-					{
-							button_back=true;
-							activarBoton=true;
-							playSound('N');
-					}
-					else
-					{
-							activarBoton=false;
-							button_back=false;
-							game50=false;
-							game80=false;
-							modo_menuMain=true;
-							playSound('A');
-					}
-			}	
-			
 			}
 			if(game)
 			{
@@ -1247,7 +1223,8 @@ void manejaControles()
 								}
 								newHighscore();
 							}
-						}	
+						}
+					SDL_Delay(2000);//
 					fcGameOver();
 					}
 					contGameOver++;
