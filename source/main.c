@@ -24,166 +24,7 @@
 u32 kDown;
 u32 kHeld;
 u32 kUp;
-u8 contMenuMain;//
-u8 contMenuModos;//
-u8 saved_selector;
 
-bool modo_menuMain;
-bool modo_juego;
-bool selectorModo;
-bool game;
-bool game40;
-bool game50;
-bool game80;
-bool modo_color_random;
-bool modo_secuencia_colores;
-bool modo_game_over;
-bool modo_input_player;
-bool game_over;
-bool modo_touch;
-bool modo_highScores;
-bool modo_blue;		
-bool data_changed;
-bool generaSaveGameFlag;
-bool button_back;
-bool activarBoton;
-bool firstTime;
-bool firstTimeMSC;
-bool salir;
-bool semaforo;
-int contGameOver;//
-int numAleatorio;//
-int semaforoAleatorio;//
-int contSemaforoSecColores;//
-int contSemaforoColorOnOff;// 
-int vecesAleatorio;// 
-int contadorPlayer;// 
-int puntos;
-int aumentaPuntos;
-int incRand;
-
-int contSecuencia;
-int bucleSecuencia;
-int posEnArray;//
-int t;//
-int vecesSecuencia;//
-
-char arrayColores[99];
-char color;
-char chHighscore0[3];
-char chHighscore1[3];
-char chHighscore2[3];
-int idUsuario;
-
-
-bool comparaStr (char entrada[],char modelo[])
-{
-int ind = 0;
-
-while (entrada[ind]!='\0' && modelo[ind]!='\0' && entrada[ind] == modelo[ind]) ind++;
-
-if (entrada[ind]!='\0' || modelo[ind]!='\0')
-   return false;
-
-return true;
-}
-void secuenciaColores(){
-	if(semaforo)
-	{	if(bucleSecuencia%2==0)
-		{
-			if(contSecuencia==0)
-			{
-				color='G';
-				contSecuencia++;
-			}
-			else if(contSecuencia==1)
-			{
-			color='R';
-			contSecuencia++;
-			}
-			else if(contSecuencia==2)
-			{
-			color='B';
-			contSecuencia++;
-			}
-			else if(contSecuencia==3)
-			{
-			color='Y';
-			contSecuencia++;
-			contSecuencia=0;
-			}
-			
-			if(bucleSecuencia==4)
-			{
-				bucleSecuencia=0;
-			}
-		}
-		bucleSecuencia++;
-	}
-	
-	if(vecesSecuencia==8)
-	{
-		semaforo=false;
-		color=' ';
-	}
-	vecesSecuencia++;
-}
-void fcGameOver(){
-	modo_color_random=false;
-	modo_menuMain=true;
-	modo_juego=false;
-	modo_touch=false;
-	modo_game_over=false;
-	game_over=false;
-	firstTime=true;
-	firstTimeMSC=true;
-	game=false;
-	game40=false;
-	game50=false;
-	modo_secuencia_colores=false;
-
-	custom_wait_touch=true;
-	modo_input_player=false;
-	semaforo=true;
-	vecesAleatorio=0;
-	contadorPlayer=0;
-	contSemaforoColorOnOff=0;
-	semaforoAleatorio=0;
-	contGameOver=0;
-	puntos=0;
-}
-
-void marcador(){
-		char cadena[3];
-		int digito1;
-		int digito0;
-		if(puntos<10){
-			renderTexture(numerosColoresTxt.texture, renderer, 0, 0, 1020, 50, 100, 100);//0
-			renderTexture(numerosColoresTxt.texture, renderer, 0+puntos*95, 0, 1120, 50, 95, 100);//
-		}else{
-			itoa(puntos, cadena, 10);
-			digito0=cadena[1]-48;
-			digito1=cadena[0]-48;
-			renderTexture(numerosColoresTxt.texture, renderer, 0+digito0*95, 0, 1120, 50, 95, 100);//
-			renderTexture(numerosColoresTxt.texture, renderer, 0+digito1*95, 0, 1020, 50, 95, 100);//
-		}
-}
-
-void saveNewHighscore(){
-		
-		FILE* save = fopen(filename, "wb");
-		if (save)
-		{ 
-			fwrite(highscore, sizeof(u16), 3, save);
-			fwrite(namePlayer, sizeof(u64), 4, save);
-		}
-}
-
-void limpiaArrayColores(){
-	for (t=0;t<99;t++){
-		arrayColores[t]='\0';	
-	}
-}
 void displayJuego(){
 	SDL_RenderClear(renderer);
 	SDL_DrawRect(renderer,0,0,1280,768,WHITE);
@@ -1283,60 +1124,16 @@ int main(int argc, char **argv)
 	srand (time(NULL));
 	//
 	window = SDL_CreateWindow("Main-Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);	
-    	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);	
-
+    	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 	
-	contMenuMain=4;
-	contMenuModos=3;
-	numAleatorio=0;
-	contSemaforoSecColores=0;
-	contSemaforoColorOnOff=0;
-	contGameOver=0;
-	t=0;// utilizada para debug
-	semaforoAleatorio=0;
-	posEnArray=0;
-	vecesSecuencia=0;
-	vecesAleatorio=0;
-	contadorPlayer=0;
-	incRand=0;
-	modoAudio=0;
-	puntos=0;
-	aumentaPuntos=3;
-	contSecuencia=0;
-	bucleSecuencia=0;
-	vecesSecuencia=0;
-	//Modos 
-	modo_menuMain=true;
-	game=false;
-	game40=false;
-	game50=false;
-	game80=false;
-	modo_secuencia_colores=false;
-	modo_touch=false;
-	modo_color_random=false;
-	modo_game_over=false;
-	game_over=false;
-	custom_wait_touch=true;
-	modo_blue=false;
-	button_back=false;
-	activarBoton=false;
-	firstTime=true;
-	firstTimeMSC=true;
-	generaSaveGameFlag=false;
-	modo_input_player=false;
-	salir=false;
-	semaforo=true;
-	// 
+	loadIniVars();
+	load_textures(); // 
+	load_fonts();// 
 	if(leeSaveGame()){
 		generaSaveGame();
 		leeSaveGame();
 	}
 	getUserInfo(); // 
-	load_textures(); // 
-	load_fonts();// 
-	// 
-	saved_selector = contMenuMain;
-	data_changed = false;
 
 	// Main loop
     while(appletMainLoop())
