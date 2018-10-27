@@ -14,7 +14,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <time.h>
 
-
+#include "mydebug.h"
 #include "SDL_helper.h"
 #include "simon_touch.h"
 #include "simon_helper.h"
@@ -25,17 +25,25 @@
 u32 kDown;
 u32 kHeld;
 u32 kUp;
-u8 contMenuMain;// 
-u8 contMenuModos;// 
+u8 contMenuMain;//
+u8 contMenuModos;//
 u8 saved_selector;
-
-
+u16 green[4];
+u16 red[4];
+u16 yellow[4];
+u16 blue[4];
+u16 pink[4];
+u16 orange[4];
+u16 violet[4];
+u16 cyan[4];
 bool modo_menuMain;
 
 bool modo_juego;
 bool selectorModo;
 bool game;
+bool game40;
 bool game50;
+bool game80;
 bool modo_color_random;
 bool modo_secuencia_colores;
 bool modo_game_over;
@@ -52,20 +60,22 @@ bool firstTime;
 bool firstTimeMSC;
 bool salir;
 bool semaforo;
-int contGameOver;
-int numAleatorio;
-int semaforoAleatorio;
-int contSemaforoSecColores; 
-int contSemaforoColorOnOff;
-int vecesAleatorio;
-int contadorPlayer;
+int contGameOver;//
+int numAleatorio;//
+int semaforoAleatorio;//
+int contSemaforoSecColores;//
+int contSemaforoColorOnOff;// 
+int vecesAleatorio;// 
+int contadorPlayer;// 
 int puntos;
 int aumentaPuntos;
+int incRand;
+
 int contSecuencia;
 int bucleSecuencia;
-int posEnArray;
-int t;
-int vecesSecuencia;
+int posEnArray;//
+int t;//
+int vecesSecuencia;//
 
 char arrayColores[99];
 char color;
@@ -128,7 +138,7 @@ void secuenciaColores(){
 	vecesSecuencia++;
 }
 void fcGameOver(){
-	SDL_Delay(2000);
+	SDL_Delay(2000);//
 	modo_color_random=false;
 	modo_menuMain=true;
 	modo_juego=false;
@@ -138,6 +148,8 @@ void fcGameOver(){
 	firstTime=true;
 	firstTimeMSC=true;
 	game=false;
+	game40=false;
+	game50=false;
 	modo_secuencia_colores=false;
 
 	custom_wait_touch=true;
@@ -156,14 +168,14 @@ void marcador(){
 		int digito1;
 		int digito0;
 		if(puntos<10){
-			renderTexture(numerosColoresTxt.texture, renderer, 0, 0, 1000, 50, 100, 100);//0
-			renderTexture(numerosColoresTxt.texture, renderer, 0+puntos*95, 0, 1100, 50, 95, 100);//
+			renderTexture(numerosColoresTxt.texture, renderer, 0, 0, 1020, 50, 100, 100);//0
+			renderTexture(numerosColoresTxt.texture, renderer, 0+puntos*95, 0, 1120, 50, 95, 100);//
 		}else{
 			itoa(puntos, cadena, 10);
 			digito0=cadena[1]-48;
 			digito1=cadena[0]-48;
-			renderTexture(numerosColoresTxt.texture, renderer, 0+digito0*95, 0, 1100, 50, 95, 100);//
-			renderTexture(numerosColoresTxt.texture, renderer, 0+digito1*95, 0, 1000, 50, 95, 100);//
+			renderTexture(numerosColoresTxt.texture, renderer, 0+digito0*95, 0, 1120, 50, 95, 100);//
+			renderTexture(numerosColoresTxt.texture, renderer, 0+digito1*95, 0, 1020, 50, 95, 100);//
 		}
 }
 
@@ -174,7 +186,6 @@ void newHighscore(){
 		{ 
 			fwrite(highscore, sizeof(u16), 3, save);
 			fwrite(namePlayer, sizeof(u64), 4, save);
-			fclose(save);
 		}
 }
 
@@ -183,9 +194,6 @@ void limpiaArrayColores(){
 		arrayColores[t]='\0';	
 	}
 }
-
-// GO
-
 void displayJuego(){
 	SDL_RenderClear(renderer);
 	SDL_DrawRect(renderer,0,0,1280,768,WHITE);
@@ -235,7 +243,7 @@ void displayJuego(){
 			renderTexture(colorM3_off[1].texture, renderer, 0, 0, 692, 293, 276, 386);//red
 			renderTexture(colorM3_off[2].texture, renderer, 0, 0, 300, 293, 276, 386);//blue
 			SDL_DrawText(renderer, Roboto_large, 585, 100, GRAY, "EASY");
-			SDL_DrawText(renderer, Roboto_large, 810, 440, GRAY, "BACK");
+			SDL_DrawText(renderer, Roboto_large, 810, 440, GRAY, "HARD");
 			SDL_DrawText(renderer, Roboto_large, 340, 440, GRAY, "MEDIUM");
 	
 			switch(contMenuModos){
@@ -245,7 +253,7 @@ void displayJuego(){
 					break;
 				case 1:// EXIT - RED  
 					renderTexture(colorM3_on[1].texture, renderer, 0, 0, 692, 293, 276, 386);//red
-					SDL_DrawText(renderer, Roboto_large, 810, 440, WHITE, "BACK");
+					SDL_DrawText(renderer, Roboto_large, 810, 440, WHITE, "HARD");
 					break;
 				case 2://  CREDITS - BLUE
 					renderTexture(colorM3_on[2].texture, renderer, 0, 0, 300, 293, 276, 386);//blue
@@ -257,52 +265,122 @@ void displayJuego(){
 		}
 		else if(game)
 		{
-			renderTexture(colorM4_off[0].texture, renderer, 0, 0, 415, 35, 437, 202);//green
-			renderTexture(colorM4_off[1].texture, renderer, 0, 0, 765, 145, 201, 436);//red
-			renderTexture(colorM4_off[2].texture, renderer, 0, 0, 302, 145, 201, 436);//yellow
-			renderTexture(colorM4_off[3].texture, renderer, 0, 0, 415, 493, 437, 202);//blue
-			
-			if(modo_input_player)
+			if(game40)
 			{
-				renderTexture(joyconTxt.texture, renderer, 0, 0, 980, 400, 256, 256);
+				//
+				renderTexture(colorM4_off[0].texture, renderer, 0, 0, 415, 35, 437, 202);//green
+				renderTexture(colorM4_off[1].texture, renderer, 0, 0, 765, 145, 201, 436);//red
+				renderTexture(colorM4_off[2].texture, renderer, 0, 0, 302, 145, 201, 436);//yellow
+				renderTexture(colorM4_off[3].texture, renderer, 0, 0, 415, 493, 437, 202);//blue
+				switch(color)
+				{
+					case 'G':
+						renderTexture(colorM4_on[0].texture, renderer, 0, 0, 415, 35, 437, 202);
+						break;
+					case 'R':
+						renderTexture(colorM4_on[1].texture, renderer, 0, 0, 765, 145, 201, 436);//red
+						break;
+					case 'Y':
+						renderTexture(colorM4_on[2].texture, renderer, 0, 0, 302, 145, 201, 436);
+						break;
+					case 'B':
+						renderTexture(colorM4_on[3].texture, renderer, 0, 0, 415, 493, 437, 202);//blue
+						break;
+					default:
+						break;	
+				}
+			}
+			else if(game50)
+			{
+				// 
+				renderTexture(colorM5_off[0].texture, renderer, 0, 0, 460, 35, 349, 162);//green
+				renderTexture(colorM5_off[1].texture, renderer, 0, 0, 767, 115, 196, 336);//red
+				renderTexture(colorM5_off[2].texture, renderer, 0, 0, 305, 115, 196, 337);//yellow
+				renderTexture(colorM5_off[3].texture, renderer, 0, 0, 325, 443, 296, 234);//blue
+				renderTexture(colorM5_off[4].texture, renderer, 0, 0, 645, 443, 296, 234);//pink
 				
+				switch(color)
+				{
+					case 'G':
+						renderTexture(colorM5_on[0].texture, renderer, 0, 0, 460, 35, 349, 162);//green
+						break;
+					case 'R':
+						renderTexture(colorM5_on[1].texture, renderer, 0, 0, 767, 115, 196, 336);//red
+						break;
+					case 'Y':
+						renderTexture(colorM5_on[2].texture, renderer, 0, 0, 305, 115, 196, 337);//yellow
+						break;						
+					case 'B':
+						renderTexture(colorM5_on[3].texture, renderer, 0, 0, 325, 443, 296, 234);//blue
+						break;
+					case 'P':
+						renderTexture(colorM5_on[4].texture, renderer, 0, 0, 645, 443, 296, 234);//pink
+						break;
+					default:
+						break;	
+				}
 			}
-			if(modo_secuencia_colores || modo_color_random)
+			else if(game80)
 			{
-				renderTexture(loop.texture, renderer, 0, 0, 980, 400, 256, 256);
-			}
-			if(modo_game_over){
-				SDL_DrawText(renderer, Roboto_large, 530, 330, WHITE, "GAME OVER");
-			}
-			
-		}
-		else if(game50)
-		{
-			renderTexture(colorM5_off[0].texture, renderer, 0, 0, 460, 35, 349, 162);//green
-			renderTexture(colorM5_off[1].texture, renderer, 0, 0, 767, 115, 196, 336);//red
-			renderTexture(colorM5_off[2].texture, renderer, 0, 0, 325, 443, 296, 234);//blue
-			renderTexture(colorM5_off[3].texture, renderer, 0, 0, 645, 443, 296, 234);//pink
-			renderTexture(colorM5_off[4].texture, renderer, 0, 0, 305, 115, 196, 337);//yellow
-			if(modo_input_player)
-			{
-				renderTexture(joyconTxt.texture, renderer, 0, 0, 980, 400, 256, 256);
+				// 
+				renderTexture(colorM8_off[0].texture, renderer, 0, 0, 410, 35, 204, 202);//green
+				renderTexture(colorM8_off[1].texture, renderer, 0, 0, 645, 35, 204, 202);//yellow
+				renderTexture(colorM8_off[2].texture, renderer, 0, 0, 760, 145, 202, 204);//orange
+				renderTexture(colorM8_off[3].texture, renderer, 0, 0, 760, 380, 204, 202);//red
+				renderTexture(colorM8_off[4].texture, renderer, 0, 0, 645, 495, 204, 202);//violet
+				renderTexture(colorM8_off[5].texture, renderer, 0, 0, 410, 495, 204, 202);//pink
+				renderTexture(colorM8_off[6].texture, renderer, 0, 0, 300, 380, 204, 202);//blue
+				renderTexture(colorM8_off[7].texture, renderer, 0, 0, 300, 145, 204, 202);//cyan
 				
-			}
-			if(modo_secuencia_colores || modo_color_random)
-			{
-				renderTexture(loop.texture, renderer, 0, 0, 980, 400, 256, 256);
-			}
-			if(modo_game_over){
-				SDL_DrawText(renderer, Roboto_large, 530, 330, WHITE, "GAME OVER");
-			}
-			
-		}
-
-
-		if(game || modo_input_player || modo_color_random || modo_game_over)
-		{
+				switch(color)
+				{
+					case 'G':
+						renderTexture(colorM8_on[0].texture, renderer, 0, 0, 410, 35, 204, 202);//green
+						break;
+					case 'Y':
+						renderTexture(colorM8_on[1].texture, renderer, 0, 0, 645, 35, 204, 202);//yellow
+						break;
+					case 'O':
+						renderTexture(colorM8_on[2].texture, renderer, 0, 0, 760, 145, 202, 204);//orange
+						break;						
+					case 'R':
+						renderTexture(colorM8_on[3].texture, renderer, 0, 0, 760, 380, 204, 202);//red
+						break;
+					case 'V':
+						renderTexture(colorM8_on[4].texture, renderer, 0, 0, 645, 495, 204, 202);//violet
+						break;
+					case 'P':
+						renderTexture(colorM8_on[5].texture, renderer, 0, 0, 410, 495, 204, 202);//pink
+						break;
+					case 'B':
+						renderTexture(colorM8_on[6].texture, renderer, 0, 0, 300, 380, 204, 204);//blue
+						break;
+					case 'C':
+						renderTexture(colorM8_on[7].texture, renderer, 0, 0, 300, 145, 204, 202);//cyan
+						break;						
+					default:
+						break;	
+				}
+			}			
 			marcador();
+				// 
+			if(modo_input_player)
+			{
+				renderTexture(joyconTxt.texture, renderer, 0, 0, 980, 400, 256, 256);
+				
+			}
+			// 
+			if(modo_secuencia_colores || modo_color_random)
+			{
+				renderTexture(loop.texture, renderer, 0, 0, 980, 400, 256, 256);
+			}
+			if(modo_game_over){
+				SDL_DrawText(renderer, Roboto_large, 530, 330, WHITE, "GAME OVER");
+				//
+			}
+			
 		}
+		//DEBUG
 		//SDL_DrawText(renderer, Roboto_large, 130, 680, BLACK, arrayColores);	
 	}
 	else if(modo_highScores)
@@ -366,62 +444,45 @@ void displayJuego(){
 					break;	
 		}
 	}
-	// Printamos el valor de color
-		switch(color){
-			case 'G':
-				renderTexture(colorM4_on[0].texture, renderer, 0, 0, 415, 35, 437, 202);
-				break;
-			case 'R':
-				renderTexture(colorM4_on[1].texture, renderer, 0, 0, 765, 145, 201, 436);//red
-				break;
-			case 'Y':
-				renderTexture(colorM4_on[2].texture, renderer, 0, 0, 302, 145, 201, 436);
-				break;
-			case 'B':
-				renderTexture(colorM4_on[3].texture, renderer, 0, 0, 415, 493, 437, 202);//blue
-				break;
-			default:
-				break;	
-		}
+	//
 	SDL_RenderPresent(renderer);			
 }
 void manejaControles()
 {
 		if(modo_menuMain)
 		{
-			// Si se pulsa abajo
+			// 
 			if (kDown & KEY_DOWN)
 			{
 				contMenuMain = 3;
 				playSound('N');
 			}
-			// Si se pulsa arriba 
+			// 
 			else if (kDown & KEY_UP)
 			{
 				contMenuMain = 0;
 				playSound('N');
 			}
-			// Si se pulsa arriba 
+			//
 			else if (kDown & KEY_RIGHT)
 			{
 				contMenuMain = 1;
 				playSound('N');
 			}
-			// Si se pulsa arriba 
+			//  
 			else if (kDown & KEY_LEFT)
 			{
 				contMenuMain = 2;
 				playSound('N');
 			}
-			// SI PULSAMOS LA A
-			// Si se pulsa A entramos al juego
+			// 
 			else if((kUp & KEY_A) && (contMenuMain==0))
 			{
 					modo_menuMain=false;
 					modo_juego=true;
 					selectorModo=true;
 			}
-			// Si se pulsa Y entramos en la parte de highscores
+			// 
 			else if((kUp & KEY_A) && (contMenuMain==2))
 			{
 				modo_menuMain=false;
@@ -441,8 +502,6 @@ void manejaControles()
 				modo_menuMain=false;
 			}			
 
-			// TACTIL
-			// comenzamos el juego con el green
 			u8 newContMenuMain;
 			if ((kDown & KEY_TOUCH && inBox(Stylus, 505, 65, 785, 200)))//green
 			{
@@ -484,7 +543,7 @@ void manejaControles()
 				{
 					modo_menuMain=false;
 					modo_highScores=true;
-					playSound('P');
+					playSound('A');
 				}
 				else
 				{
@@ -500,7 +559,7 @@ void manejaControles()
 				{
 					modo_menuMain=false;
 					modo_blue=true;
-					playSound('P');
+					playSound('A');
 				}
 				else
 				{
@@ -510,15 +569,7 @@ void manejaControles()
 			}
 		}
 		else if(modo_juego)
-		{	
-			if(game50)
-			{
-				if(kUp & KEY_B){
-					modo_highScores=false;
-					modo_menuMain=true;
-				}
-			}
-			
+		{
 			if(selectorModo)
 			{
 				// Si se pulsa abajo
@@ -545,36 +596,36 @@ void manejaControles()
 					contMenuModos = 2;
 					playSound('N');
 				}
-				// SI PULSAMOS LA A
-				// Si se pulsa A entramos al juego
+
+				//
 				else if((kUp & KEY_A) && (contMenuModos==0))
 				{
 						selectorModo=false;
 						modo_juego=true;
 						game=true;
+						game40=true;
 						modo_color_random=true;
 					
 				}
-				// Si se pulsa Y entramos en la parte de highscores
+				// 
 				else if((kUp & KEY_A) && (contMenuModos==2))
 				{
 					//modo_menuMain=false;
 					//modo_highScores=true;
 
 				}
-				// Si se pulsa 
+				// 
 				else if((kUp & KEY_A) && (contMenuModos==1))
 				{
 					selectorModo=false;
 					modo_menuMain=true;
 				}
-				// Si se pulsa B
+				// 
 				else if((kUp & KEY_A) && (contMenuModos==3))
 				{
 					//modo_blue=true;
 					//modo_menuMain=false;
 				}			
-
 
 				u8 newContMenuModos;
 				if ((kDown & KEY_TOUCH && inBox(Stylus, 505, 65, 785, 200)))//green
@@ -586,23 +637,28 @@ void manejaControles()
 						selectorModo=false;
 						modo_juego=true;
 						game=true;
+						game40=true;
+						modoAudio=4;
 						modo_color_random=true;
 					}
 					else
 					{
 						contMenuModos = newContMenuModos;
 					}
-				}// salir
+				}//
 				else if ((kDown & KEY_TOUCH && inBox(Stylus, 780, 260, 920, 560)))//red
 				{
 					newContMenuModos=1;
 					
 					if (contMenuModos == newContMenuModos)
 					{
-						playSound('P');
-						modo_menuMain=true;
+						playSound('A');
 						selectorModo=false;
-						modo_juego=false;
+						modo_juego=true;
+						game=true;
+						game80=true;
+						modoAudio=8;
+						modo_color_random=true;
 					}
 					else
 					{
@@ -619,9 +675,11 @@ void manejaControles()
 					{
 						selectorModo=false;
 						modo_juego=true;
+						game=true;
 						game50=true;
+						modoAudio=5;
 						modo_color_random=true;
-						playSound('P');
+						playSound('A');
 					}
 					else
 					{
@@ -632,18 +690,32 @@ void manejaControles()
 			}
 			if(modo_input_player)
 			{
-				// AL PRESIONAR EL TACTIL
-				if(kUp & KEY_TOUCH)
+				if(game40)
 				{
-				color=' ';
-				}			
-				if (kDown & KEY_TOUCH)
-				{
-					if (inBox(Stylus, 505, 65, 785, 200))//green
-					{
-						
+					green[0]=495;green[1]=65;green[2]=790;green[3]=180;
+					blue[0]=495;blue[1]=532;blue[2]=790;blue[3]=645;//blue
+					yellow[0]=340;yellow[1]=220;yellow[2]=475;yellow[3]=490;//
+					red[0]=800;red[1]=220;red[2]=940;red[3]=500;//
+					// Al PRESIONAR LAS TECLAS
+					if(kDown & KEY_X){
 						color='G';
 						playSound('G');
+					}		
+					else if(kDown & KEY_Y){
+						color='Y';
+						playSound('Y');
+					}
+					else if(kDown & KEY_A){
+						color='R';
+						playSound('R');
+					}
+					else if(kDown & KEY_B){
+						color='B';
+						playSound('B');
+					}
+					// al soltar la tecla
+					if(kUp & KEY_X){
+						color=' ';
 						if(arrayColores[contadorPlayer]=='G'){
 							if(contadorPlayer==strlen(arrayColores)-1){
 								game=true;
@@ -655,37 +727,15 @@ void manejaControles()
 							}
 							contadorPlayer++;
 						}
-						else{
+						else
+						{
 							game=true;
 							playSound('X');
 							modo_game_over=true;
 						}
 					}
-					else if (inBox(Stylus, 526, 520, 753, 655))//blue
-					{
-						color='B';
-						playSound('B');
-						if(arrayColores[contadorPlayer]=='B'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
-							}
-							contadorPlayer++;
-						}
-						else{
-							game=true;
-							playSound('X');
-							modo_game_over=true;
-						}
-					}	
-					else if (inBox(Stylus, 340, 220, 480, 500))//Yellow
-					{
-						color='Y';
-						playSound('Y');
+					else if(kUp & KEY_Y){
+						color=' ';
 						if(arrayColores[contadorPlayer]=='Y'){
 							if(contadorPlayer==strlen(arrayColores)-1){
 								game=true;
@@ -701,14 +751,10 @@ void manejaControles()
 							game=true;
 							playSound('X');
 							modo_game_over=true;
-						}
-							
-							
+						}				
 					}
-					else if (inBox(Stylus, 800, 220, 940, 500))//Red
-					{
-						color='R';
-						playSound('R');
+					else if(kUp & KEY_A){
+						color=' ';
 						if(arrayColores[contadorPlayer]=='R'){
 							if(contadorPlayer==strlen(arrayColores)-1){
 								game=true;
@@ -725,87 +771,9 @@ void manejaControles()
 							playSound('X');
 							modo_game_over=true;
 							
-						}
-					}				
-				}
-				// Al PRESIONAR LAS TECLAS
-				if(kDown & KEY_X){
-					color='G';
-					playSound('G');
-				}		
-				else if(kDown & KEY_Y){
-					color='Y';
-					playSound('Y');
-				}
-				else if(kDown & KEY_A){
-					color='R';
-					playSound('R');
-				}
-				else if(kDown & KEY_B){
-					color='B';
-					playSound('B');
-				}
-				// al soltar la tecla
-				if(kUp & KEY_X){
-					color=' ';
-					if(arrayColores[contadorPlayer]=='G'){
-						if(contadorPlayer==strlen(arrayColores)-1){
-							game=true;
-							modo_secuencia_colores=true;
-							modo_input_player=false;
-							modo_touch=true;
-							puntos=puntos+aumentaPuntos;
-							firstTimeMSC=true;
-						}
-						contadorPlayer++;
+						}			
 					}
-					else
-					{
-						game=true;
-						playSound('X');
-						modo_game_over=true;
-					}
-				}
-				else if(kUp & KEY_Y){
-					color=' ';
-					if(arrayColores[contadorPlayer]=='Y'){
-						if(contadorPlayer==strlen(arrayColores)-1){
-							game=true;
-							modo_secuencia_colores=true;
-							modo_input_player=false;
-							modo_touch=true;
-							puntos=puntos+aumentaPuntos;
-							firstTimeMSC=true;
-						}
-						contadorPlayer++;
-					}
-					else{
-						game=true;
-						playSound('X');
-						modo_game_over=true;
-					}				
-				}
-				else if(kUp & KEY_A){
-					color=' ';
-					if(arrayColores[contadorPlayer]=='R'){
-						if(contadorPlayer==strlen(arrayColores)-1){
-							game=true;
-							modo_secuencia_colores=true;
-							modo_input_player=false;
-							modo_touch=true;
-							puntos=puntos+aumentaPuntos;
-							firstTimeMSC=true;
-						}
-						contadorPlayer++;
-					}
-					else{
-						game=true;
-						playSound('X');
-						modo_game_over=true;
-						
-					}			
-				}
-				else if(kUp & KEY_B){
+					else if(kUp & KEY_B){
 					color=' ';
 					if(arrayColores[contadorPlayer]=='B'){
 						if(contadorPlayer==strlen(arrayColores)-1){
@@ -828,23 +796,291 @@ void manejaControles()
 				else if(kDown & KEY_L){
 					fcGameOver();limpiaArrayColores();
 				}
+				}
+				else if(game50)
+				{
+					if(kUp & KEY_B){
+						game50=false;
+						game=false;
+						modo_menuMain=true;
+					}
+					green[0]=505;green[1]=65;green[2]=785;green[3]=200;
+					blue[0]=340;blue[1]=460;blue[2]=630;blue[3]=665;//
+					yellow[0]=310;yellow[1]=115;yellow[2]=470;yellow[3]=420;//
+					red[0]=820;red[1]=115;red[2]=970;red[3]=430;//
+					pink[0]=650;pink[1]=440;pink[2]=940;pink[3]=665;//
+					if (kDown & KEY_TOUCH)
+					{
+						if (inBox(Stylus, pink[0], pink[1], pink[2], pink[3]))
+						{
+							
+							color='P';
+							playSound('P');
+							if(arrayColores[contadorPlayer]=='P'){
+								if(contadorPlayer==strlen(arrayColores)-1){
+									game=true;
+									modo_secuencia_colores=true;
+									modo_input_player=false;
+									modo_touch=true;
+									puntos=puntos+aumentaPuntos;
+									firstTimeMSC=true;
+								}
+								contadorPlayer++;
+							}
+							else{
+								game=true;
+								playSound('X');
+								modo_game_over=true;
+							}
+						}
+					}
+				}
+				else if(game80)
+				{
+						green[0]=480;green[1]=30;green[2]=630;green[3]=210;
+						blue[0]=310;blue[1]=375;blue[2]=480;blue[3]=535;//
+						yellow[0]=660;yellow[1]=30;yellow[2]=820;yellow[3]=190;//
+						red[0]=805;red[1]=375;red[2]=970;red[3]=535;//
+						pink[0]=495;pink[1]=515;pink[2]=630;pink[3]=670;//
+						orange[0]=805;orange[1]=190;orange[2]=970;orange[3]=350;//
+						violet[0]=650;violet[1]=520;violet[2]=820;violet[3]=680;//
+						cyan[0]=310;cyan[1]=190;cyan[2]=475;cyan[3]=350;//
+					if(kUp & KEY_B)
+					{
+						game80=false;
+						game=false;
+						modo_menuMain=true;
+					}					
+					if (kDown & KEY_TOUCH)
+					{	
+						if (inBox(Stylus, pink[0], pink[1], pink[2], pink[3]))// PINK
+						{
+							color='P';
+							playSound('P');
+							if(arrayColores[contadorPlayer]=='P'){
+								if(contadorPlayer==strlen(arrayColores)-1){
+									game=true;
+									modo_secuencia_colores=true;
+									modo_input_player=false;
+									modo_touch=true;
+									puntos=puntos+aumentaPuntos;
+									firstTimeMSC=true;
+								}
+								contadorPlayer++;
+							}
+							else{
+								game=true;
+								playSound('X');
+								modo_game_over=true;
+							}
+						}
+						if (inBox(Stylus, orange[0], orange[1], orange[2], orange[3]))// ORANGE
+						{
+							color='O';
+							playSound('O');
+							if(arrayColores[contadorPlayer]=='O'){
+								if(contadorPlayer==strlen(arrayColores)-1){
+									game=true;
+									modo_secuencia_colores=true;
+									modo_input_player=false;
+									modo_touch=true;
+									puntos=puntos+aumentaPuntos;
+									firstTimeMSC=true;
+								}
+								contadorPlayer++;
+							}
+							else{
+								game=true;
+								playSound('X');
+								modo_game_over=true;
+							}
+						}
+						if (inBox(Stylus, violet[0], violet[1], violet[2], violet[3]))// VIOLET
+						{
+							color='V';
+							playSound('V');
+							if(arrayColores[contadorPlayer]=='V'){
+								if(contadorPlayer==strlen(arrayColores)-1){
+									game=true;
+									modo_secuencia_colores=true;
+									modo_input_player=false;
+									modo_touch=true;
+									puntos=puntos+aumentaPuntos;
+									firstTimeMSC=true;
+								}
+								contadorPlayer++;
+							}
+							else{
+								game=true;
+								playSound('X');
+								modo_game_over=true;
+							}
+						}									
+						if (inBox(Stylus, cyan[0], cyan[1], cyan[2], cyan[3]))// CYAN
+						{
+							color='C';
+							playSound('C');
+							if(arrayColores[contadorPlayer]=='C'){
+								if(contadorPlayer==strlen(arrayColores)-1){
+									game=true;
+									modo_secuencia_colores=true;
+									modo_input_player=false;
+									modo_touch=true;
+									puntos=puntos+aumentaPuntos;
+									firstTimeMSC=true;
+								}
+								contadorPlayer++;
+							}
+							else{
+								game=true;
+								playSound('X');
+								modo_game_over=true;
+							}
+						}				
+					}
+				}				
+				//
+				if(kUp & KEY_TOUCH)
+				{
+				color=' ';
+				}			
+				if (kDown & KEY_TOUCH)
+				{
+					if (inBox(Stylus, green[0], green[1], green[2], green[3]))//green
+					{
+						
+						color='G';
+						playSound('G');
+						if(arrayColores[contadorPlayer]=='G'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							game=true;
+							playSound('X');
+							modo_game_over=true;
+						}
+					}
+					else if (inBox(Stylus, blue[0], blue[1], blue[2], blue[3]))//blue
+					{
+						color='B';
+						playSound('B');
+						if(arrayColores[contadorPlayer]=='B'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							game=true;
+							playSound('X');
+							modo_game_over=true;
+						}
+					}	
+					else if (inBox(Stylus, yellow[0], yellow[1], yellow[2], yellow[3]))//Yellow
+					{
+						color='Y';
+						playSound('Y');
+						if(arrayColores[contadorPlayer]=='Y'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							game=true;
+							playSound('X');
+							modo_game_over=true;
+						}
+							
+							
+					}
+					else if (inBox(Stylus, red[0], red[1], red[2], red[3]))//Red
+					{
+						color='R';
+						playSound('R');
+						if(arrayColores[contadorPlayer]=='R'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							game=true;
+							playSound('X');
+							modo_game_over=true;
+							
+						}
+					}
+					
+				}
+				//Salir
+				if(kUp & KEY_B && !game40){
+				game50=false;
+				game80=false;
+				modo_menuMain=true;
+				}
+				// salir tactil
+				if ((kDown & KEY_TOUCH && inBox(Stylus, 900, 220, 1101, 500) && !game))//red
+				{
+					if (!activarBoton)
+					{
+							button_back=true;
+							activarBoton=true;
+							playSound('N');
+					}
+					else
+					{
+							activarBoton=false;
+							button_back=false;
+							game50=false;
+							game80=false;
+							modo_menuMain=true;
+							playSound('A');
+					}
+			}	
+			
 			}
 			if(game)
 			{
 				if(modo_color_random){
 					if(firstTime){
-						SDL_Delay(1500);
+						SDL_Delay(1500);//
 						playSound('S');
 						firstTime=false;
 					}
 					if(semaforoAleatorio==0){
-
+						//SDL_Delay(300);//
 						semaforoAleatorio++;
 					}
 					else if(semaforoAleatorio==1)
 					{
-						
-						numAleatorio = rand() % 4;
+						if(game40){incRand=4;}
+						else if(game50){incRand=5;}
+						else if(game80){incRand=8;}
+						numAleatorio = rand() % incRand;
 						switch(numAleatorio){
 							case 0:
 								//GREEN
@@ -852,23 +1088,42 @@ void manejaControles()
 								arrayColores[vecesAleatorio]='G';
 								break;
 							case 1:
-								//RED 
-								color='R';
-								arrayColores[vecesAleatorio]='R';
-								break;
-							case 2:
-								//YELLOW
+								//YELLOW 
 								color='Y';
 								arrayColores[vecesAleatorio]='Y';
+								break;
+							case 2:
+								//RED
+								color='R';
+								arrayColores[vecesAleatorio]='R';
 								break;
 							case 3:
 								//BLUE
 								color='B';
 								arrayColores[vecesAleatorio]='B';
 								break;
-							default:
+							case 4:
+								//PINK
+								color='P';
+								arrayColores[vecesAleatorio]='P';
+								break;	
+							case 5:
+								//ORANGE
+								color='O';
+								arrayColores[vecesAleatorio]='O';
 								break;
-							
+							case 6:
+								//VIOLET
+								color='V';
+								arrayColores[vecesAleatorio]='V';
+								break;
+							case 7:
+								//CYAN
+								color='C';
+								arrayColores[vecesAleatorio]='C';
+								break;								
+							default:
+								break;								
 						}
 					
 					vecesAleatorio++;
@@ -881,7 +1136,7 @@ void manejaControles()
 						modo_input_player=true;
 						semaforoAleatorio=0;
 						modo_color_random=false;
-						SDL_Delay(300);
+						SDL_Delay(300);//
 						contadorPlayer=0;
 					}
 				}
@@ -890,17 +1145,17 @@ void manejaControles()
 
 					if(!modo_touch){
 						if(contSemaforoSecColores<strlen(arrayColores)){
-							//si entro la primera vez
+							//
 							if(contSemaforoSecColores==0){
-					
+								//SDL_Delay(300);
 							}
 							if(contSemaforoColorOnOff==0){
 								color=' ';
 								contSemaforoColorOnOff++;
-								
+								//SDL_Delay(150);
 							}
 							else if(contSemaforoColorOnOff==1){				
-								if(firstTimeMSC){
+								if(firstTimeMSC){//
 									SDL_Delay(1500);
 									firstTimeMSC=false;
 								}
@@ -909,7 +1164,7 @@ void manejaControles()
 								contSemaforoColorOnOff++;
 							}
 							else if(contSemaforoColorOnOff==2){
-								
+								//
 								color=' ';
 								contSemaforoColorOnOff=0;
 								contSemaforoSecColores++;
@@ -920,7 +1175,6 @@ void manejaControles()
 							contSemaforoSecColores=0;
 							modo_secuencia_colores=false;
 							modo_color_random=true;
-							
 						}
 					}
 					modo_touch=false;
@@ -936,44 +1190,43 @@ void manejaControles()
 					}
 					else if(contGameOver==2)
 					{
-						color=' ';
+						color=' ';//
 						SDL_Delay(1000);
 
 						limpiaArrayColores();
 						if(!userAnonymous)
 						{
-							
+							// 
 							if(puntos>highscore[0])
 							{
 								if(comparaStr(namePlayer[0],username)==0)
 								{
-
 									strcpy(namePlayer[2],namePlayer[1]);
 									strcpy(namePlayer[1],namePlayer[0]);
 									
 									//
 									highscore[2]=highscore[1];
 									highscore[1]=highscore[0];
-
+									//
 									stpcpy(namePlayer[0],username);
 									highscore[0]=puntos;
 									
 								}
 								if(comparaStr(namePlayer[0],username)==1)
 								{
-
+									// 
 									stpcpy(namePlayer[0],username);
 									highscore[0]=puntos;
 									
 								}
 								newHighscore();
-
+								//leeSaveGame();
 							}
-							else if(puntos>highscore[1])
+							else if(puntos>highscore[1])//  
 							{
 								if(comparaStr(namePlayer[1],username)==1)
 								{
-									
+									// 
 									highscore[2]=highscore[1];
 									stpcpy(namePlayer[2],namePlayer[1]);
 									stpcpy(namePlayer[1],username);
@@ -996,18 +1249,21 @@ void manejaControles()
 					fcGameOver();
 					}
 					contGameOver++;
+
+					// 
 				}
 			}
 		}
+
 		else if(modo_highScores)
 		{
-			// Si 
+			// 
 			
 			if(kUp & KEY_B){
 				modo_highScores=false;
 				modo_menuMain=true;
 			}
-			// salir tactil
+			// 
 			if ((kDown & KEY_TOUCH && inBox(Stylus, 900, 220, 1101, 500)))//red
 			{
 				if (!activarBoton)
@@ -1022,12 +1278,13 @@ void manejaControles()
 						button_back=false;
 						modo_highScores=false;
 						modo_menuMain=true;
-						playSound('P');
+						playSound('A');
 				}
 			}	
 			itoa(highscore[0],chHighscore0,10);
 			itoa(highscore[1],chHighscore1,10);
 			itoa(highscore[2],chHighscore2,10);
+			secuenciaColores();
 		}
 		else if(modo_blue)
 		{
@@ -1035,7 +1292,7 @@ void manejaControles()
 				modo_highScores=false;
 				modo_menuMain=true;
 			}
-			// salir tactil
+			// 
 			if ((kDown & KEY_TOUCH && inBox(Stylus, 900, 220, 1101, 500)))//red
 			{
 				if (!activarBoton)
@@ -1050,13 +1307,12 @@ void manejaControles()
 						button_back=false;
 						modo_highScores=false;
 						modo_menuMain=true;
-						playSound('P');
+						playSound('A');
 				}
 			}	
 		 secuenciaColores();
-		}
+		}			
 }
-
 int main(int argc, char **argv)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -1065,10 +1321,11 @@ int main(int argc, char **argv)
 	romfsInit();
 	TTF_Init();
 	srand (time(NULL));
-
+	//
 	window = SDL_CreateWindow("Main-Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);	
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);	
+    	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);	
 
+	
 	contMenuMain=4;
 	contMenuModos=3;
 	numAleatorio=0;
@@ -1081,6 +1338,8 @@ int main(int argc, char **argv)
 	vecesSecuencia=0;
 	vecesAleatorio=0;
 	contadorPlayer=0;
+	incRand=0;
+	modoAudio=0;
 	puntos=0;
 	aumentaPuntos=3;
 	contSecuencia=0;
@@ -1089,7 +1348,9 @@ int main(int argc, char **argv)
 	//Modos 
 	modo_menuMain=true;
 	game=false;
+	game40=false;
 	game50=false;
+	game80=false;
 	modo_secuencia_colores=false;
 	modo_touch=false;
 	modo_color_random=false;
@@ -1105,20 +1366,23 @@ int main(int argc, char **argv)
 	modo_input_player=false;
 	salir=false;
 	semaforo=true;
+	// 
 	if(leeSaveGame()){
 		generaSaveGame();
 		leeSaveGame();
 	}
-	getUserInfo(); 
-	load_textures();
-	load_fonts();
+	getUserInfo(); // 
+	load_textures(); // 
+	load_fonts();// 
+	// 
 	saved_selector = contMenuMain;
 	data_changed = false;
 
 	// Main loop
     while(appletMainLoop())
     {   
-
+		
+        //Scan all the inputs. This should be done once for each frame
         hidScanInput();
 		hidTouchRead(&Stylus, 0);
 		
@@ -1129,9 +1393,8 @@ int main(int argc, char **argv)
 		
 		manejaControles();		
 		displayJuego();
-
     }
 
-	SDL_Quit();
-    return 0;
+SDL_Quit();
+return 0;
 }
