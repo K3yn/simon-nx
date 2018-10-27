@@ -653,14 +653,14 @@ void manejaControles()
 				}
 				else if(game80)
 				{
-						green[0]=480;green[1]=30;green[2]=630;green[3]=210;
-						blue[0]=310;blue[1]=375;blue[2]=480;blue[3]=535;//
-						yellow[0]=660;yellow[1]=30;yellow[2]=820;yellow[3]=190;//
-						red[0]=805;red[1]=375;red[2]=970;red[3]=535;//
-						pink[0]=495;pink[1]=515;pink[2]=630;pink[3]=670;//
-						orange[0]=805;orange[1]=190;orange[2]=970;orange[3]=350;//
-						violet[0]=650;violet[1]=520;violet[2]=820;violet[3]=680;//
-						cyan[0]=310;cyan[1]=190;cyan[2]=475;cyan[3]=350;//
+					green[0]=480;green[1]=30;green[2]=630;green[3]=210;
+					blue[0]=310;blue[1]=375;blue[2]=480;blue[3]=535;//
+					yellow[0]=660;yellow[1]=30;yellow[2]=820;yellow[3]=190;//
+					red[0]=805;red[1]=375;red[2]=970;red[3]=535;//
+					pink[0]=495;pink[1]=515;pink[2]=630;pink[3]=670;//
+					orange[0]=805;orange[1]=190;orange[2]=970;orange[3]=350;//
+					violet[0]=650;violet[1]=520;violet[2]=820;violet[3]=680;//
+					cyan[0]=310;cyan[1]=190;cyan[2]=475;cyan[3]=350;//
 					
 					if (kDown & KEY_TOUCH)
 					{	
@@ -749,17 +749,14 @@ void manejaControles()
 							}
 						}				
 					}
-					//Salir
-					if(kUp & KEY_L){
+					if(kUp & KEY_L){//Salir
 					fcGameOver();
 					}					
-				}				
-				//		
-				if (kDown & KEY_TOUCH)
+				}						
+				if (kDown & KEY_TOUCH)//
 				{
 					if (inBox(Stylus, green[0], green[1], green[2], green[3]))//green
 					{
-						
 						color='G';
 						playSound('G');
 						if(arrayColores[contadorPlayer]=='G'){
@@ -819,9 +816,7 @@ void manejaControles()
 							game=true;
 							playSound('X');
 							modo_game_over=true;
-						}
-							
-							
+						}	
 					}
 					else if (inBox(Stylus, red[0], red[1], red[2], red[3]))//Red
 					{
@@ -842,10 +837,8 @@ void manejaControles()
 							game=true;
 							playSound('X');
 							modo_game_over=true;
-							
 						}
 					}
-					
 				}
 				if(kUp & KEY_TOUCH)
 				{
@@ -864,8 +857,7 @@ void manejaControles()
 						firstTime=false;
 					}
 					if(semaforoAleatorio==0){
-						//SDL_Delay(300);//
-						semaforoAleatorio++;
+						semaforoAleatorio++;//SDL_Delay(300);//
 					}
 					else if(semaforoAleatorio==1)
 					{
@@ -917,10 +909,9 @@ void manejaControles()
 							default:
 								break;								
 						}
-					
-					vecesAleatorio++;
-					semaforoAleatorio++;
-					playSound(color);// 
+						vecesAleatorio++;
+						semaforoAleatorio++;
+						playSound(color);// 
 					}
 					else if(semaforoAleatorio==2)
 					{
@@ -934,11 +925,9 @@ void manejaControles()
 				}
 				else if(modo_secuencia_colores)
 				{
-
 					if(!modo_touch){
 						if(contSemaforoSecColores<strlen(arrayColores)){
-							//
-							if(contSemaforoSecColores==0){
+							if(contSemaforoSecColores==0){//
 								//SDL_Delay(300);
 							}
 							if(contSemaforoColorOnOff==0){
@@ -955,13 +944,11 @@ void manejaControles()
 								playSound(color);
 								contSemaforoColorOnOff++;
 							}
-							else if(contSemaforoColorOnOff==2){
-								//
+							else if(contSemaforoColorOnOff==2){//
 								color=' ';
 								contSemaforoColorOnOff=0;
 								contSemaforoSecColores++;
 							}
-							
 						}
 						else if(contSemaforoSecColores==strlen(arrayColores)){
 							contSemaforoSecColores=0;
@@ -988,28 +975,23 @@ void manejaControles()
 						limpiaArrayColores();
 						if(!userAnonymous)
 						{
-							// 
-							if(puntos>highscore[0])
+							if(puntos>highscore[0])// 
 							{
 								if(comparaStr(namePlayer[0],username)==0)
 								{
 									strcpy(namePlayer[2],namePlayer[1]);
 									strcpy(namePlayer[1],namePlayer[0]);
-									
 									//
 									highscore[2]=highscore[1];
 									highscore[1]=highscore[0];
 									//
 									stpcpy(namePlayer[0],username);
 									highscore[0]=puntos;
-									
 								}
-								if(comparaStr(namePlayer[0],username)==1)
+								if(comparaStr(namePlayer[0],username)==1)// 
 								{
-									// 
 									stpcpy(namePlayer[0],username);
-									highscore[0]=puntos;
-									
+									highscore[0]=puntos;	
 								}
 								saveNewHighscore();
 							}
@@ -1017,13 +999,11 @@ void manejaControles()
 							{
 								if(comparaStr(namePlayer[1],username)==1)
 								{
-									// 
 									highscore[2]=highscore[1];
 									stpcpy(namePlayer[2],namePlayer[1]);
 									stpcpy(namePlayer[1],username);
 									highscore[2]=highscore[1];
 									highscore[1]=puntos;
-									
 								}
 								saveNewHighscore();
 							}
@@ -1041,21 +1021,15 @@ void manejaControles()
 					fcGameOver();
 					}
 					contGameOver++;
-
-					// 
-				}
+				}	// 
 			}
 		}
-
 		else if(modo_highScores)
 		{
-			// 
-			
-			if(kUp & KEY_B){
+			if(kUp & KEY_B){// 
 				modo_highScores=false;
 				modo_menuMain=true;
 			}
-			// 
 			if ((kDown & KEY_TOUCH && inBox(Stylus, 900, 220, 1101, 500)))//red
 			{
 				if (!activarBoton)
@@ -1128,8 +1102,7 @@ int main(int argc, char **argv)
 
 	// Main loop
     while(appletMainLoop())
-    {   
-		
+    {	
         //Scan all the inputs. This should be done once for each frame
         hidScanInput();
 		hidTouchRead(&Stylus, 0);
