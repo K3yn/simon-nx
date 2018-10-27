@@ -800,11 +800,6 @@ void manejaControles()
 				}
 				else if(game50)
 				{
-					if(kUp & KEY_B){
-						game50=false;
-						game=false;
-						modo_menuMain=true;
-					}
 					green[0]=505;green[1]=65;green[2]=785;green[3]=200;
 					blue[0]=340;blue[1]=460;blue[2]=630;blue[3]=665;//
 					yellow[0]=310;yellow[1]=115;yellow[2]=470;yellow[3]=420;//
@@ -846,12 +841,7 @@ void manejaControles()
 						orange[0]=805;orange[1]=190;orange[2]=970;orange[3]=350;//
 						violet[0]=650;violet[1]=520;violet[2]=820;violet[3]=680;//
 						cyan[0]=310;cyan[1]=190;cyan[2]=475;cyan[3]=350;//
-					if(kUp & KEY_B)
-					{
-						game80=false;
-						game=false;
-						modo_menuMain=true;
-					}					
+					
 					if (kDown & KEY_TOUCH)
 					{	
 						if (inBox(Stylus, pink[0], pink[1], pink[2], pink[3]))// PINK
