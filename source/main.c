@@ -283,56 +283,49 @@ void manejaControles()
 {
 		if(modo_menuMain)
 		{
-			// 
-			if (kDown & KEY_DOWN)
+			if (kDown & KEY_DOWN)// 
 			{
 				contMenuMain = 3;
 				playSound('N');
 			}
-			// 
-			else if (kDown & KEY_UP)
+			else if (kDown & KEY_UP)//
 			{
 				contMenuMain = 0;
 				playSound('N');
 			}
-			//
-			else if (kDown & KEY_RIGHT)
+			else if (kDown & KEY_RIGHT)//
 			{
 				contMenuMain = 1;
 				playSound('N');
 			}
-			//  
-			else if (kDown & KEY_LEFT)
+			else if (kDown & KEY_LEFT)//  
 			{
 				contMenuMain = 2;
 				playSound('N');
-			}
-			// 
-			else if((kUp & KEY_A) && (contMenuMain==0))
+			}	 
+			else if((kUp & KEY_A) && (contMenuMain==0))//
 			{
 					modo_menuMain=false;
 					modo_juego=true;
 					selectorModo=true;
 			}
-			// 
-			else if((kUp & KEY_A) && (contMenuMain==2))
+			else if((kUp & KEY_A) && (contMenuMain==2))// 
 			{
 				modo_menuMain=false;
 				modo_highScores=true;
-
 			}
-			// Si se pulsa B
-			else if((kUp & KEY_A) && (contMenuMain==1))
+			else if((kUp & KEY_A) && (contMenuMain==1))//
 			{
 				playSound('X');
 				salir=true;// SALIMOS
 			}
-			// Si se pulsa B
-			else if((kUp & KEY_A) && (contMenuMain==3))
+			else if((kUp & KEY_A) && (contMenuMain==3))//
 			{
 				modo_blue=true;
 				modo_menuMain=false;
-			}			
+			}
+			
+			//
 
 			u8 newContMenuMain;
 			if ((kDown & KEY_TOUCH && inBox(Stylus, 505, 65, 785, 200)))//green
