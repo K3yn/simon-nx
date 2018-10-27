@@ -531,7 +531,7 @@ void manejaControles()
 				}
 				else
 				{
-					playSound('N');
+					playSound('X');
 					contMenuMain = newContMenuMain;
 				}
 			}// creditos
@@ -640,9 +640,11 @@ void manejaControles()
 						game40=true;
 						modoAudio=4;
 						modo_color_random=true;
+						playSound('A');
 					}
 					else
 					{
+						playSound('N');
 						contMenuModos = newContMenuModos;
 					}
 				}//
