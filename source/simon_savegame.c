@@ -5,13 +5,11 @@
 #include <sys/stat.h> 
 #include "simon_savegame.h"
 
-
 void generaSaveGame(){
 	FILE* save = fopen(filename, "wb");
 	
 	if (save)
 	{ 
-
 		highscore[0]=5;
 		highscore[1]=4;
 		highscore[2]=3;
@@ -24,6 +22,7 @@ void generaSaveGame(){
 		fclose(save);
 	}
 }
+
 int leeSaveGame(){
 
 	savepath = SAVEPATH;
@@ -53,6 +52,7 @@ int leeSaveGame(){
 
 	return t;
 }
+
 void saveNewHighscore(){
 		
 		FILE* save = fopen(filename, "wb");
