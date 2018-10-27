@@ -169,7 +169,7 @@ void marcador(){
 		}
 }
 
-void newHighscore(){
+void saveNewHighscore(){
 		
 		FILE* save = fopen(filename, "wb");
 		if (save)
@@ -1179,8 +1179,7 @@ void manejaControles()
 									highscore[0]=puntos;
 									
 								}
-								newHighscore();
-								//leeSaveGame();
+								saveNewHighscore();
 							}
 							else if(puntos>highscore[1])//  
 							{
@@ -1194,7 +1193,7 @@ void manejaControles()
 									highscore[1]=puntos;
 									
 								}
-								newHighscore();
+								saveNewHighscore();
 							}
 							else if(puntos>highscore[2])
 							{
@@ -1203,7 +1202,7 @@ void manejaControles()
 									stpcpy(namePlayer[2],username);
 									highscore[2]=puntos;
 								}
-								newHighscore();
+								saveNewHighscore();
 							}
 						}
 					SDL_Delay(2000);//
