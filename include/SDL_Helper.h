@@ -15,7 +15,10 @@ typedef struct
 	SDL_Rect DestR;
 } 
 images;
-images tile, icon, background[1], bgSquare, bgCircle, iconframe, colorM3_on[3], colorM3_off[3], colorM4_on[4], colorM4_off[4], colorM5_on[5], colorM5_off[5], numero, numeroBlue, numerosColoresTxt, loop, joyconTxt;
+images icon, background[1], bgSquare, bgCircle, iconframe,
+ colorM3_on[3], colorM3_off[3], colorM4_on[4], colorM4_off[4], colorM5_on[5], colorM5_off[5], colorM8_on[8], colorM8_off[8], 
+ numero, numerosColoresTxt, loop, joyconTxt;
+
 static inline SDL_Color SDL_MakeColour(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
 	SDL_Color colour = {r, g, b, a};
