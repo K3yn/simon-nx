@@ -6,40 +6,83 @@
 #include "simon_helper.h"
 
 void playSound(char color){
-	static const char *MY_COOL_MP3;
+	static const char *color_sound;
+	if(modoAudio==4 || modoAudio==5)
+	{
+		switch(color)
+		{
+			case 'G':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/00.mp3";
+				break;
+			case 'R':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/03.mp3";
+				break;				
+			case 'B':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/06.mp3";
+				break;
+			case 'Y':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/09.mp3";
+				break;
+			case 'P':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/12.mp3";
+				break;
+			default:
+			break;	
+		}
+	}
+	else if(modoAudio==8)
+	{
+		switch(color)
+		{
+			case 'G':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/00.mp3";
+				break;
+			case 'R':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/02.mp3";
+				break;				
+			case 'B':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/04.mp3";
+				break;
+			case 'Y':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/06.mp3";
+				break;
+			case 'P':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/08.mp3";
+				break;
+			case 'O':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/10.mp3";
+				break;
+			case 'V':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/12.mp3";
+				break;
+			case 'C':
+				color_sound = "sdmc:/switch/simon-nx/sounds/game/14.mp3";
+				break;				
+			default:
+			break;	
+		}
+	
+	}
 	switch(color)
 	{
-		case 'G':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/colors/gSound.mp3";
-			break;
-		case 'R':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/colors/rSound.mp3";
-			break;				
-		case 'B':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/colors/bSound.mp3";
-			break;
-		case 'Y':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/colors/ySound.mp3";
-			break;	
 		case 'X':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/game_over.mp3";
+			color_sound = "sdmc:/switch/simon-nx/sounds/game_over.mp3";
 			break;
 		case 'N':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/navigate.mp3";
+			color_sound = "sdmc:/switch/simon-nx/sounds/navigate.mp3";
 			break;
-		case 'P':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/push.mp3";
+		case 'A':
+			color_sound = "sdmc:/switch/simon-nx/sounds/push.mp3";
 			break;
 		case 'S':
-			MY_COOL_MP3 = "sdmc:/switch/simon-nx/sounds/start_game.mp3";
+			color_sound = "sdmc:/switch/simon-nx/sounds/start_game.mp3";
 			break;				
 		default:
 			break;
 	}
-  Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1280);
-  Mix_Music *music = Mix_LoadMUS(MY_COOL_MP3);
-	Mix_PlayMusic(music, 1);
-
+    Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1280);
+    Mix_Music *music = Mix_LoadMUS(color_sound);
+	Mix_PlayMusic(music, 1); // Suena el sonido y luego displayea el color	
 	if(color=='X')
 	{
 		SDL_Delay(1000);
@@ -52,14 +95,16 @@ void playSound(char color){
 	{
 		SDL_Delay(100);
 	}
-	else if(color=='P')
+	else if(color=='A')
 	{
-		SDL_Delay(600);
-	}	
-	else
-	{
-		SDL_Delay(200);
+		SDL_Delay(400);
 	}
+	else if(modoAudio==4 || modoAudio==5 || modoAudio==8)
+	{
+		SDL_Delay(250);
+	}	
+
+	// hacemos la pausa para que suene la musica
     Mix_FreeMusic(music);
 }
 void turnONcolor(char color){
