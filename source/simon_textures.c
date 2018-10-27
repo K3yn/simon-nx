@@ -109,17 +109,19 @@ void load_textures(void){
 	colorM5_on[1].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 	
-	surface = IMG_Load("romfs:/resources/colors_m5/blue-on.png");
+	surface = IMG_Load("romfs:/resources/colors_m5/yellow-on.png");
 	colorM5_on[2].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 	
-	surface = IMG_Load("romfs:/resources/colors_m5/pink-on.png");
+	surface = IMG_Load("romfs:/resources/colors_m5/blue-on.png");
 	colorM5_on[3].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 	
-	surface = IMG_Load("romfs:/resources/colors_m5/yellow-on.png");
+	surface = IMG_Load("romfs:/resources/colors_m5/pink-on.png");
 	colorM5_on[4].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
+	
+
 	
 	// Colores M5 OFF
 
@@ -130,17 +132,85 @@ void load_textures(void){
 	surface = IMG_Load("romfs:/resources/colors_m5/red-off.png");
 	colorM5_off[1].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
-
-	surface = IMG_Load("romfs:/resources/colors_m5/blue-off.png");
+	
+	surface = IMG_Load("romfs:/resources/colors_m5/yellow-off.png");
 	colorM5_off[2].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 	
-	surface = IMG_Load("romfs:/resources/colors_m5/pink-off.png");
+	surface = IMG_Load("romfs:/resources/colors_m5/blue-off.png");
 	colorM5_off[3].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 	
-	surface = IMG_Load("romfs:/resources/colors_m5/yellow-off.png");
+	surface = IMG_Load("romfs:/resources/colors_m5/pink-off.png");
 	colorM5_off[4].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	// Colores  M8 ON 
+
+	surface = IMG_Load("romfs:/resources/colors_m8/green-on.png");
+	colorM8_on[0].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/yellow-on.png");
+	colorM8_on[1].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/orange-on.png");
+	colorM8_on[2].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/red-on.png");
+	colorM8_on[3].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/violet-on.png");
+	colorM8_on[4].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);	
+
+	surface = IMG_Load("romfs:/resources/colors_m8/pink-on.png");
+	colorM8_on[5].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
+	surface = IMG_Load("romfs:/resources/colors_m8/blue-on.png");
+	colorM8_on[6].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/cyan-on.png");
+	colorM8_on[7].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);	
+	
+	// Colores M8 OFF
+
+	surface = IMG_Load("romfs:/resources/colors_m8/green-off.png");
+	colorM8_off[0].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/yellow-off.png");
+	colorM8_off[1].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/orange-off.png");
+	colorM8_off[2].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/red-off.png");
+	colorM8_off[3].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/violet-off.png");
+	colorM8_off[4].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);	
+
+	surface = IMG_Load("romfs:/resources/colors_m8/pink-off.png");
+	colorM8_off[5].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
+	surface = IMG_Load("romfs:/resources/colors_m8/blue-off.png");
+	colorM8_off[6].texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	
+	surface = IMG_Load("romfs:/resources/colors_m8/cyan-off.png");
+	colorM8_off[7].texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);	
 	
 }
