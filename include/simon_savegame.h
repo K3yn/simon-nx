@@ -12,4 +12,5 @@ char namePlayer[3][12];
 u16 highscore[3];
 void generaSaveGame();
 int leeSaveGame();
+void saveNewHighscore();
 #endif
