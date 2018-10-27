@@ -12,6 +12,5 @@ u16 orange[4];
 u16 violet[4];
 u16 cyan[4];
 
-bool custom_wait_touch;
 bool inBox(touchPosition touch, int x1, int y1, int x2, int y2);
 #endif
