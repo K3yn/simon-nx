@@ -14,6 +14,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <time.h>
 
+//#include "mydebug.h"
 #include "SDL_helper.h"
 #include "simon_touch.h"
 #include "simon_helper.h"
@@ -21,6 +22,7 @@
 #include "simon_textures.h"
 #include "simon_acc.h"
 #include "simon_fonts.h"
+
 u32 kDown;
 u32 kHeld;
 u32 kUp;
@@ -33,8 +35,9 @@ void displayJuego(){
 	SDL_DrawImageScale(icon.texture, 20, 600, 96, 96);
 	SDL_DrawImageScale(iconframe.texture, 20, 600, 96, 96);
 	SDL_DrawText(renderer, Roboto_large, 130, 630, BLACK, username);
-	renderTexture(bgCircle.texture, renderer, 0, 0, 285, 20, 696, 696);// Circle
+	renderTexture(bgCircle.texture, renderer, 0, 0, 285, 20, 696, 696);//
 	if(modo_menuMain){
+		//
 		renderTexture(colorM4_off[0].texture, renderer, 0, 0, 415, 35, 437, 202);//green_off
 		SDL_DrawText(renderer, Roboto_large, 585, 100, GRAY, "PLAY");
 		renderTexture(colorM4_off[1].texture, renderer, 0, 0, 765, 145, 201, 436);//red_off
@@ -194,11 +197,10 @@ void displayJuego(){
 				}
 			}			
 			marcador();
-				// 
-			if(modo_input_player)
+				
+			if(modo_input_player)// 
 			{
 				renderTexture(joyconTxt.texture, renderer, 0, 0, 980, 400, 256, 256);
-				
 			}
 			// 
 			if(modo_secuencia_colores || modo_color_random)
@@ -257,25 +259,24 @@ void displayJuego(){
 		renderTexture(colorM4_off[3].texture, renderer, 0, 0, 415, 493, 437, 202);//blue
 		SDL_DrawText(renderer, Roboto_50, 540, 100, WHITE, "CREDITS");
 		
-		switch(color)
+		switch(color)//
 		{
-				case 'G':
-					renderTexture(colorM4_on[0].texture, renderer, 0, 0, 415, 35, 437, 202);
-					break;
-				case 'R':
-					renderTexture(colorM4_on[1].texture, renderer, 0, 0, 765, 145, 201, 436);//red
-					break;
-				case 'Y':
-					renderTexture(colorM4_on[2].texture, renderer, 0, 0, 302, 145, 201, 436);
-					break;
-				case 'B':
-					renderTexture(colorM4_on[3].texture, renderer, 0, 0, 415, 493, 437, 202);//blue
-					break;
-				default:
-					break;	
+			case 'G':
+				renderTexture(colorM4_on[0].texture, renderer, 0, 0, 415, 35, 437, 202);
+				break;
+			case 'R':
+				renderTexture(colorM4_on[1].texture, renderer, 0, 0, 765, 145, 201, 436);//red
+				break;
+			case 'Y':
+				renderTexture(colorM4_on[2].texture, renderer, 0, 0, 302, 145, 201, 436);
+				break;
+			case 'B':
+				renderTexture(colorM4_on[3].texture, renderer, 0, 0, 415, 493, 437, 202);//blue
+				break;
+			default:
+				break;	
 		}
 	}
-	//
 	SDL_RenderPresent(renderer);			
 }
 void manejaControles()
