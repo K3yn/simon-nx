@@ -403,49 +403,47 @@ void manejaControles()
 					contMenuModos = 0;
 					playSound('N');
 				}
-				// Si se pulsa arriba 
-				else if (kDown & KEY_RIGHT)
+				else if (kDown & KEY_RIGHT)//
 				{
 					contMenuModos = 1;
 					playSound('N');
 				}
-				// Si se pulsa arriba 
-				else if (kDown & KEY_LEFT)
+				else if (kDown & KEY_LEFT)//
 				{
 					contMenuModos = 2;
 					playSound('N');
 				}
-
-				//
-				else if((kUp & KEY_A) && (contMenuModos==0))
-				{
-						selectorModo=false;
-						modo_juego=true;
-						game=true;
-						game40=true;
-						modo_color_random=true;
-					
-				}
-				// 
-				else if((kUp & KEY_A) && (contMenuModos==2))
-				{
-					//modo_menuMain=false;
-					//modo_highScores=true;
-
-				}
-				// 
-				else if((kUp & KEY_A) && (contMenuModos==1))
+				else if((kUp & KEY_A) && (contMenuModos==0))//
 				{
 					selectorModo=false;
-					modo_menuMain=true;
+					modo_juego=true;
+					game=true;
+					game40=true;
+					modoAudio=4;
+					modo_color_random=true;
+					playSound('A');
 				}
-				// 
-				else if((kUp & KEY_A) && (contMenuModos==3))
+				else if((kUp & KEY_A) && (contMenuModos==1))//
 				{
-					//modo_blue=true;
-					//modo_menuMain=false;
-				}			
-
+					playSound('A');
+					selectorModo=false;
+					modo_juego=true;
+					game=true;
+					game80=true;
+					modoAudio=8;
+					modo_color_random=true;
+				}
+				else if((kUp & KEY_A) && (contMenuModos==3))// 
+				{
+					selectorModo=false;
+					modo_juego=true;
+					game=true;
+					game50=true;
+					modoAudio=5;
+					modo_color_random=true;
+					playSound('A');
+				}				
+				//
 				u8 newContMenuModos;
 				if ((kDown & KEY_TOUCH && inBox(Stylus, 505, 65, 785, 200)))//green
 				{
@@ -486,8 +484,7 @@ void manejaControles()
 						playSound('N');
 						contMenuModos = newContMenuModos;
 					}
-				}// 
-
+				}
 				else if ((kDown & KEY_TOUCH && inBox(Stylus,  340, 220, 480, 500)))//blue
 				{
 					newContMenuModos=2;
