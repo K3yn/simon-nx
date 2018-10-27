@@ -244,7 +244,7 @@ void fcGameOver(){
 	contGameOver=0;
 	puntos=0;
 }
-oid marcador(){
+void marcador(){
 		char cadena[3];
 		int digito1;
 		int digito0;
