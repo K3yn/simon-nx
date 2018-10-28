@@ -195,6 +195,35 @@ void displayJuego(){
 					default:
 						break;	
 				}
+				switch(contColorM8)
+				{
+					case 0:
+						renderTexture(colorM8_on[0].texture, renderer, 0, 0, 410, 35, 204, 202);//green
+						break;
+					case 1:
+						renderTexture(colorM8_on[1].texture, renderer, 0, 0, 645, 35, 204, 202);//yellow
+						break;
+					case 2:
+						renderTexture(colorM8_on[2].texture, renderer, 0, 0, 760, 145, 202, 204);//orange
+						break;
+					case 3:
+						renderTexture(colorM8_on[3].texture, renderer, 0, 0, 760, 380, 204, 202);//red
+						break;	
+					case 4:
+						renderTexture(colorM8_on[4].texture, renderer, 0, 0, 645, 495, 204, 202);//violet
+						break;
+					case 5:
+						renderTexture(colorM8_on[5].texture, renderer, 0, 0, 410, 495, 204, 202);//pink
+						break;
+					case 6:
+						renderTexture(colorM8_on[6].texture, renderer, 0, 0, 300, 380, 204, 204);//blue
+						break;						
+					case 7:
+						renderTexture(colorM8_on[7].texture, renderer, 0, 0, 300, 145, 204, 202);//cyan
+						break;
+					default:
+						break;							
+				}			
 			}			
 			marcador();
 				
@@ -508,6 +537,97 @@ void manejaControles()
 			}
 			if(modo_input_player)
 			{
+				if (kDown & KEY_TOUCH)//
+				{
+					if (inBox(Stylus, green[0], green[1], green[2], green[3]))//green
+					{
+						color='G';
+						playSound('G');
+						if(arrayColores[contadorPlayer]=='G'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								//game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							//game=true;
+							playSound('X');
+							modo_game_over=true;
+						}
+					}
+					else if (inBox(Stylus, blue[0], blue[1], blue[2], blue[3]))//blue
+					{
+						color='B';
+						playSound('B');
+						if(arrayColores[contadorPlayer]=='B'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								//game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							//game=true;
+							playSound('X');
+							modo_game_over=true;
+						}
+					}	
+					else if (inBox(Stylus, yellow[0], yellow[1], yellow[2], yellow[3]))//Yellow
+					{
+						color='Y';
+						playSound('Y');
+						if(arrayColores[contadorPlayer]=='Y'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								//game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							//game=true;
+							playSound('X');
+							modo_game_over=true;
+						}	
+					}
+					else if (inBox(Stylus, red[0], red[1], red[2], red[3]))//Red
+					{
+						color='R';
+						playSound('R');
+						if(arrayColores[contadorPlayer]=='R'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								//game=true;
+								modo_secuencia_colores=true;
+								modo_input_player=false;
+								modo_touch=true;
+								puntos=puntos+aumentaPuntos;
+								firstTimeMSC=true;
+							}
+							contadorPlayer++;
+						}
+						else{
+							//game=true;
+							playSound('X');
+							modo_game_over=true;
+						}
+					}
+				}
+				if(kUp & KEY_TOUCH)// RESET DEL COLOR AL PULSAR EL JUGADOR
+				{
+				color=' ';
+				}			
 				if(game40)
 				{
 					green[0]=495;green[1]=65;green[2]=790;green[3]=180;
@@ -646,10 +766,7 @@ void manejaControles()
 							}
 						}
 					}
-					// KEYS	
-					if(kUp & KEY_L){//
-					fcGameOver();
-					}				
+					// KEYS				
 				}
 				else if(game80)
 				{
@@ -749,104 +866,32 @@ void manejaControles()
 							}
 						}				
 					}
-					if(kUp & KEY_L){//Salir
-					fcGameOver();
-					}					
-				}						
-				if (kDown & KEY_TOUCH)//
-				{
-					if (inBox(Stylus, green[0], green[1], green[2], green[3]))//green
-					{
-						color='G';
-						playSound('G');
-						if(arrayColores[contadorPlayer]=='G'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
-							}
-							contadorPlayer++;
+				}
+					// KEYS
+					if(kHeld & KEY_DOWN){
+						contColorM8++;
+						contColorM8 %= 8;
+					}
+					if(kHeld & KEY_UP){
+						if (contColorM8 > 0)
+						{
+							contColorM8--;
 						}
-						else{
-							game=true;
-							playSound('X');
-							modo_game_over=true;
+						else
+						{
+							contColorM8 = 7;
 						}
 					}
-					else if (inBox(Stylus, blue[0], blue[1], blue[2], blue[3]))//blue
-					{
-						color='B';
-						playSound('B');
-						if(arrayColores[contadorPlayer]=='B'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
-							}
-							contadorPlayer++;
-						}
-						else{
-							game=true;
-							playSound('X');
-							modo_game_over=true;
-						}
+					if(kDown & KEY_LEFT){
+						
 					}	
-					else if (inBox(Stylus, yellow[0], yellow[1], yellow[2], yellow[3]))//Yellow
-					{
-						color='Y';
-						playSound('Y');
-						if(arrayColores[contadorPlayer]=='Y'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
-							}
-							contadorPlayer++;
-						}
-						else{
-							game=true;
-							playSound('X');
-							modo_game_over=true;
-						}	
-					}
-					else if (inBox(Stylus, red[0], red[1], red[2], red[3]))//Red
-					{
-						color='R';
-						playSound('R');
-						if(arrayColores[contadorPlayer]=='R'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
-							}
-							contadorPlayer++;
-						}
-						else{
-							game=true;
-							playSound('X');
-							modo_game_over=true;
-						}
-					}
-				}
-				if(kUp & KEY_TOUCH)
-				{
-				color=' ';
-				}
+					if(contColorM8==8 || color == -1){
+						contColorM8=0;
+					}		
+				}				
 				if(kUp & KEY_L){
-				fcGameOver();
-				}			
+					fcGameOver();
+				}		
 			}
 			if(game)
 			{
