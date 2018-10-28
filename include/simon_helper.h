@@ -24,6 +24,7 @@ int vecesSecuencia;//
 char arrayColores[99];
 char color;
 char chHighscore0[3];char chHighscore1[3];char chHighscore2[3];
+char intToCharSound[3];
 
 bool semaforo;
 bool modo_menuMain;
@@ -49,7 +50,7 @@ bool firstTime;
 bool firstTimeMSC;
 bool salir;
 
-void true_color();
+void key_touch_player(char);
 void loadIniVars();
 void playSound(char color);
 void turnONcolor(char color);
