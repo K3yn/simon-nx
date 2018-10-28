@@ -1,20 +1,21 @@
 #ifndef simon_helper_H
 #define simon_helper_H
 
-u8 contMenuMain;// usada en el menu main para controlar la posicion
-u8 contMenuModos;// usada en el menu selector level para controlar la seleccion y posicion del nivel
+u8 contMenuMain;// 
+u8 contMenuModos;// 
+u8 contColorM8;
 
 int modoAudio;
-int t;//variable utilizada para debug
+int t;//
 int bucleSecuencia;
 int contSecuencia;
-int contGameOver;// utilizada en game over
-int numAleatorio;// numero que se genera para seleccionar el color aleatorio
-int semaforoAleatorio;// Utilizado para controlar la puesta y retirada del color_on del color correspondiente
-int contSemaforoSecColores; // Se utiliza para entrar o salir de la secuencia de colores
-int contSemaforoColorOnOff;// Se utiliza en secuencia de colores para apagar o encender el color
-int vecesAleatorio;// Contando las veces aleatorias, podemos utilizarla para que vaya rellenando el array cada vez que genera un aleatorio
-int contadorPlayer;// se utilizara para saber las veces que ha pulsado el jugador cuando este en su secuencia de introduccion de colores
+int contGameOver;//
+int numAleatorio;//
+int semaforoAleatorio;//
+int contSemaforoSecColores; //
+int contSemaforoColorOnOff;//
+int vecesAleatorio;//
+int contadorPlayer;//
 int puntos;
 int aumentaPuntos;
 int incRand;
