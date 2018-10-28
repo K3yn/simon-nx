@@ -47,12 +47,22 @@ void loadIniVars(){
 	semaforo=true;	
 }
 
-void true_color(){
-	modo_secuencia_colores=true;
-	modo_input_player=false;
-	modo_touch=true;
-	puntos=puntos+aumentaPuntos;
-	firstTimeMSC=true;
+void key_touch_player(char color)
+{
+	if(arrayColores[contadorPlayer]==color){
+		if(contadorPlayer==strlen(arrayColores)-1){
+			modo_secuencia_colores=true;
+			modo_input_player=false;
+			modo_touch=true;
+			puntos=puntos+aumentaPuntos;
+			firstTimeMSC=true;
+		}
+		contadorPlayer++;
+	}
+	else{
+		playSound('X');
+		modo_game_over=true;
+	}
 }
 
 void playSound(char color){
@@ -84,34 +94,41 @@ void playSound(char color){
 	{
 		switch(color)
 		{
+			case '0':
 			case 'G':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/00.mp3";
 				break;
-			case 'R':
+			case '1':	
+			case 'Y':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/02.mp3";
-				break;				
-			case 'B':
+				break;
+			case '2':	
+			case 'O':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/04.mp3";
 				break;
-			case 'Y':
+			case '3':	
+			case 'R':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/06.mp3";
 				break;
-			case 'P':
+			case '4':			
+			case 'V':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/08.mp3";
 				break;
-			case 'O':
+			case '5':				
+			case 'P':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/10.mp3";
 				break;
-			case 'V':
+			case '6':	
+			case 'B':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/12.mp3";
 				break;
+			case '7':	
 			case 'C':
 				color_sound = "sdmc:/switch/simon-nx/sounds/game/14.mp3";
 				break;				
 			default:
 			break;	
 		}
-	
 	}
 	switch(color)
 	{
