@@ -793,12 +793,10 @@ void manejaControles()
 					if(!modo_touch){
 						if(contSemaforoSecColores<strlen(arrayColores)){
 							if(contSemaforoSecColores==0){//
-								//SDL_Delay(300);
+								color=' ';//SDL_Delay(300);
 							}
 							if(contSemaforoColorOnOff==0){
-								color=' ';
-								contSemaforoColorOnOff++;
-								//SDL_Delay(150);
+								contSemaforoColorOnOff++;//SDL_Delay(150);
 							}
 							else if(contSemaforoColorOnOff==1){				
 								if(firstTimeMSC){//
