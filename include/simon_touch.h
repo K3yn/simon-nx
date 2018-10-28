@@ -13,4 +13,5 @@ u16 violet[4];
 u16 cyan[4];
 
 bool inBox(touchPosition touch, int x1, int y1, int x2, int y2);
+void load_vars_touch_colors(int modo);
 #endif
