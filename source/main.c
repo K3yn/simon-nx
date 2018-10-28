@@ -510,63 +510,27 @@ void manejaControles()
 				{
 					if (inBox(Stylus, green[0], green[1], green[2], green[3]))//green
 					{
+						key_touch_player('G');
 						color='G';
 						playSound('G');
-						if(arrayColores[contadorPlayer]=='G'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else{;
-							playSound('X');
-							modo_game_over=true;
-						}
 					}
 					else if (inBox(Stylus, blue[0], blue[1], blue[2], blue[3]))//blue
 					{
+						key_touch_player('B');
 						color='B';
 						playSound('B');
-						if(arrayColores[contadorPlayer]=='B'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else{
-							playSound('X');
-							modo_game_over=true;
-						}
 					}	
 					else if (inBox(Stylus, yellow[0], yellow[1], yellow[2], yellow[3]))//Yellow
 					{
+						key_touch_player('Y');
 						color='Y';
 						playSound('Y');
-						if(arrayColores[contadorPlayer]=='Y'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else{
-							playSound('X');
-							modo_game_over=true;
-						}	
 					}
 					else if (inBox(Stylus, red[0], red[1], red[2], red[3]))//Red
 					{
+						key_touch_player('R');
 						color='R';
 						playSound('R');
-						if(arrayColores[contadorPlayer]=='R'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else{
-							playSound('X');
-							modo_game_over=true;
-						}
 					}
 				}
 				if(kUp & KEY_TOUCH)// RESET DEL COLOR AL PULSAR EL JUGADOR
