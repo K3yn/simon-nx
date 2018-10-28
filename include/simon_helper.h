@@ -3,7 +3,7 @@
 
 u8 contMenuMain;// 
 u8 contMenuModos;// 
-u8 contColorM8;
+int contColorM8;
 
 int modoAudio;
 int t;//
