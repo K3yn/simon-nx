@@ -895,16 +895,17 @@ void manejaControles()
 			if(game)
 			{
 				if(modo_color_random){
-					if(firstTime){
-						SDL_Delay(1500);//
-						playSound('S');
-						firstTime=false;
-					}
+					
 					if(semaforoAleatorio==0){
 						semaforoAleatorio++;//SDL_Delay(300);//
 					}
 					else if(semaforoAleatorio==1)
 					{
+						if(firstTime){
+							SDL_Delay(1500);//
+							playSound('S');
+							firstTime=false;
+						}
 						if(game40){incRand=4;}
 						else if(game50){incRand=5;}
 						else if(game80){incRand=8;}
