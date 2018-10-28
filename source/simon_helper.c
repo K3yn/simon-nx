@@ -8,6 +8,7 @@
 void loadIniVars(){
 	contMenuMain=4;
 	contMenuModos=3;
+	contColorM8=-1;
 	numAleatorio=0;
 	contSemaforoSecColores=0;
 	contSemaforoColorOnOff=0;
