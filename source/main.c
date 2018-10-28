@@ -691,7 +691,6 @@ void manejaControles()
 					{
 						if (inBox(Stylus, pink[0], pink[1], pink[2], pink[3]))
 						{
-							
 							color='P';
 							playSound('P');
 							if(arrayColores[contadorPlayer]=='P'){
