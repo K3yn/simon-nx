@@ -778,7 +778,7 @@ void manejaControles()
 					orange[0]=805;orange[1]=190;orange[2]=970;orange[3]=350;//
 					violet[0]=650;violet[1]=520;violet[2]=820;violet[3]=680;//
 					cyan[0]=310;cyan[1]=190;cyan[2]=475;cyan[3]=350;//
-					
+					//
 					if (kDown & KEY_TOUCH)
 					{	
 						if (inBox(Stylus, pink[0], pink[1], pink[2], pink[3]))// PINK
@@ -866,28 +866,27 @@ void manejaControles()
 							}
 						}				
 					}
+				// KEYS
+				if(kHeld & KEY_DOWN){
+					contColorM8++;
+					contColorM8 %= 8;
 				}
-					// KEYS
-					if(kHeld & KEY_DOWN){
-						contColorM8++;
-						contColorM8 %= 8;
+				if(kHeld & KEY_UP){
+					if (contColorM8 > 0)
+					{
+						contColorM8--;
 					}
-					if(kHeld & KEY_UP){
-						if (contColorM8 > 0)
-						{
-							contColorM8--;
-						}
-						else
-						{
-							contColorM8 = 7;
-						}
+					else
+					{
+						contColorM8 = 7;
 					}
-					if(kDown & KEY_LEFT){
-						
-					}	
-					if(contColorM8==8 || color == -1){
-						contColorM8=0;
-					}		
+				}
+				if(kDown & KEY_LEFT){
+
+				}	
+				if(contColorM8==8 || color == -1){
+					contColorM8=0;
+				}		
 				}				
 				if(kUp & KEY_L){
 					fcGameOver();
@@ -1118,6 +1117,7 @@ void manejaControles()
 						button_back=false;
 						modo_highScores=false;
 						modo_menuMain=true;
+						contSecuencia=0;semaforo=true;// Para que vuelva a salir el efecto de la secuencia de colores	
 						playSound('A');
 				}
 			}	
