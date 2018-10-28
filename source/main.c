@@ -544,73 +544,35 @@ void manejaControles()
 					if(kDown & KEY_X){
 						color='G';
 						playSound('G');
+						key_touch_player('G');
 					}		
 					else if(kDown & KEY_Y){
 						color='Y';
 						playSound('Y');
+						key_touch_player('Y');
 					}
 					else if(kDown & KEY_A){
 						color='R';
 						playSound('R');
+						key_touch_player('R');	
 					}
 					else if(kDown & KEY_B){
 						color='B';
 						playSound('B');
+						key_touch_player('B');
 					}
-					//
+					// 
 					if(kUp & KEY_X){
 						color=' ';
-						if(arrayColores[contadorPlayer]=='G'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else
-						{
-							playSound('X');
-							modo_game_over=true;
-						}
 					}
 					else if(kUp & KEY_Y){
-						color=' ';
-						if(arrayColores[contadorPlayer]=='Y'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else{
-							playSound('X');
-							modo_game_over=true;
-						}				
+						color=' ';	
 					}
 					else if(kUp & KEY_A){
 						color=' ';
-						if(arrayColores[contadorPlayer]=='R'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else{
-							playSound('X');
-							modo_game_over=true;
-							
-						}			
 					}
 					else if(kUp & KEY_B){
 						color=' ';
-						if(arrayColores[contadorPlayer]=='B'){
-							if(contadorPlayer==strlen(arrayColores)-1){
-								true_color();
-							}
-							contadorPlayer++;
-						}
-						else{
-							playSound('X');
-							modo_game_over=true;
-						}
 					}
 				}
 				else if(game50)
@@ -621,18 +583,9 @@ void manejaControles()
 					{
 						if (inBox(Stylus, pink[0], pink[1], pink[2], pink[3]))
 						{
+							key_touch_player('P');
 							color='P';
 							playSound('P');
-							if(arrayColores[contadorPlayer]=='P'){
-								if(contadorPlayer==strlen(arrayColores)-1){
-									true_color();
-								}
-								contadorPlayer++;
-							}
-							else{
-								playSound('X');
-								modo_game_over=true;
-							}
 						}
 					}
 					// KEYS				
@@ -640,93 +593,122 @@ void manejaControles()
 				else if(game80)
 				{
 					load_vars_touch_colors(2);
-					//
+					// TOUCH
 					if (kDown & KEY_TOUCH)
 					{	
 						if (inBox(Stylus, pink[0], pink[1], pink[2], pink[3]))// PINK
 						{
+							key_touch_player('P');
 							color='P';
 							playSound('P');
-							if(arrayColores[contadorPlayer]=='P'){
-								if(contadorPlayer==strlen(arrayColores)-1){
-									true_color();
-								}
-								contadorPlayer++;
-							}
-							else{
-								playSound('X');
-								modo_game_over=true;
-							}
 						}
 						if (inBox(Stylus, orange[0], orange[1], orange[2], orange[3]))// ORANGE
 						{
+							key_touch_player('O');
 							color='O';
 							playSound('O');
-							if(arrayColores[contadorPlayer]=='O'){
-								if(contadorPlayer==strlen(arrayColores)-1){
-									true_color();
-								}
-								contadorPlayer++;
-							}
-							else{
-								playSound('X');
-								modo_game_over=true;
-							}
 						}
 						if (inBox(Stylus, violet[0], violet[1], violet[2], violet[3]))// VIOLET
 						{
+							key_touch_player('V');
 							color='V';
 							playSound('V');
-							if(arrayColores[contadorPlayer]=='V'){
-								if(contadorPlayer==strlen(arrayColores)-1){
-									true_color();
-								}
-								contadorPlayer++;
-							}
-							else{
-								playSound('X');
-								modo_game_over=true;
-							}
 						}									
 						if (inBox(Stylus, cyan[0], cyan[1], cyan[2], cyan[3]))// CYAN
 						{
+							key_touch_player('C');
 							color='C';
 							playSound('C');
-							if(arrayColores[contadorPlayer]=='C'){
-								if(contadorPlayer==strlen(arrayColores)-1){
-									true_color();
-								}
-								contadorPlayer++;
-							}
-							else{
-								playSound('X');
-								modo_game_over=true;
-							}
 						}				
 					}
-				// KEYS
-				if(kHeld & KEY_DOWN){
-					contColorM8++;
-					contColorM8 %= 8;
-				}
-				if(kHeld & KEY_UP){
-					if (contColorM8 > 0)
-					{
-						contColorM8--;
+					// KEYS
+					if(kHeld & KEY_DOWN){
+						contColorM8++;
+						contColorM8 %= 8;
 					}
-					else
-					{
-						contColorM8 = 7;
+					if(kHeld & KEY_UP){
+						if (contColorM8 > 0)
+						{
+							contColorM8--;
+						}
+						else
+						{
+							contColorM8 = 7;
+						}
+						
 					}
-				}
-				if(kDown & KEY_LEFT){
-
-				}	
-				if(contColorM8==8 || color == -1){
+					switch(contColorM8){
+							case 0:
+								color='G';
+								break;
+							case 1:
+								color='Y';
+								break;
+							case 2:
+								color='O';
+								break;
+							case 3:
+								color='R';
+								break;
+							case 4:
+								color='V';
+								break;
+							case 5:
+								color='P';
+								break;
+							case 6:
+								color='B';
+								break;
+							case 7:
+								color='C';
+								break;								
+							default:
+								break;
+						}
+					if(contColorM8>7){
 					contColorM8=0;
-				}		
+					}					
+					
+					if(kDown & KEY_A){
+						if(contColorM8!=-1){
+							itoa(contColorM8, intToCharSound,10);
+							playSound(intToCharSound[0]);
+								switch(contColorM8){
+									case 0:
+										key_touch_player('G');
+										break;
+									case 1:
+										key_touch_player('Y');
+										break;
+									case 2:
+										key_touch_player('O');
+										break;
+									case 3:
+										key_touch_player('R');
+										break;
+									case 4:
+										key_touch_player('V');
+										break;
+									case 5:
+										key_touch_player('P');
+										break;
+									case 6:
+										key_touch_player('B');
+										break;
+									case 7:
+										key_touch_player('C');
+										break;									
+									default:
+										break;
+								}
+							contColorM8=-1;
+						}
+					}
+					if(kUp & KEY_A){
+						color=' ';
+					}	
 				}				
-				if(kUp & KEY_L){
+				if(kUp & KEY_L){// Salida enmedio del juego en cualquier modo
 					fcGameOver();
 				}		
 			}
