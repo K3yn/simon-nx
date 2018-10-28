@@ -545,17 +545,11 @@ void manejaControles()
 						playSound('G');
 						if(arrayColores[contadorPlayer]=='G'){
 							if(contadorPlayer==strlen(arrayColores)-1){
-								//game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
+								true_color();
 							}
 							contadorPlayer++;
 						}
-						else{
-							//game=true;
+						else{;
 							playSound('X');
 							modo_game_over=true;
 						}
@@ -566,17 +560,11 @@ void manejaControles()
 						playSound('B');
 						if(arrayColores[contadorPlayer]=='B'){
 							if(contadorPlayer==strlen(arrayColores)-1){
-								//game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
+								true_color();
 							}
 							contadorPlayer++;
 						}
 						else{
-							//game=true;
 							playSound('X');
 							modo_game_over=true;
 						}
@@ -587,17 +575,11 @@ void manejaControles()
 						playSound('Y');
 						if(arrayColores[contadorPlayer]=='Y'){
 							if(contadorPlayer==strlen(arrayColores)-1){
-								//game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
+								true_color();
 							}
 							contadorPlayer++;
 						}
 						else{
-							//game=true;
 							playSound('X');
 							modo_game_over=true;
 						}	
@@ -608,17 +590,11 @@ void manejaControles()
 						playSound('R');
 						if(arrayColores[contadorPlayer]=='R'){
 							if(contadorPlayer==strlen(arrayColores)-1){
-								//game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
+								true_color();
 							}
 							contadorPlayer++;
 						}
 						else{
-							//game=true;
 							playSound('X');
 							modo_game_over=true;
 						}
@@ -656,18 +632,12 @@ void manejaControles()
 						color=' ';
 						if(arrayColores[contadorPlayer]=='G'){
 							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
+								true_color();
 							}
 							contadorPlayer++;
 						}
 						else
 						{
-							game=true;
 							playSound('X');
 							modo_game_over=true;
 						}
@@ -676,17 +646,11 @@ void manejaControles()
 						color=' ';
 						if(arrayColores[contadorPlayer]=='Y'){
 							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
+								true_color();
 							}
 							contadorPlayer++;
 						}
 						else{
-							game=true;
 							playSound('X');
 							modo_game_over=true;
 						}				
@@ -695,17 +659,11 @@ void manejaControles()
 						color=' ';
 						if(arrayColores[contadorPlayer]=='R'){
 							if(contadorPlayer==strlen(arrayColores)-1){
-								game=true;
-								modo_secuencia_colores=true;
-								modo_input_player=false;
-								modo_touch=true;
-								puntos=puntos+aumentaPuntos;
-								firstTimeMSC=true;
+								true_color();
 							}
 							contadorPlayer++;
 						}
 						else{
-							game=true;
 							playSound('X');
 							modo_game_over=true;
 							
@@ -715,24 +673,18 @@ void manejaControles()
 					color=' ';
 					if(arrayColores[contadorPlayer]=='B'){
 						if(contadorPlayer==strlen(arrayColores)-1){
-							game=true;
-							modo_secuencia_colores=true;
-							modo_input_player=false;
-							modo_touch=true;
-							puntos=puntos+aumentaPuntos;
-							firstTimeMSC=true;
+							true_color();
 						}
 						contadorPlayer++;
 					}
 					else{
-						game=true;
 						playSound('X');
 						modo_game_over=true;
 					}
-				}
-				else if(kDown & KEY_L){// SALIMOS
-					fcGameOver();limpiaArrayColores();
-				}
+					}
+					else if(kDown & KEY_L){//
+						fcGameOver();limpiaArrayColores();
+					}
 				}
 				else if(game50)
 				{
@@ -750,17 +702,11 @@ void manejaControles()
 							playSound('P');
 							if(arrayColores[contadorPlayer]=='P'){
 								if(contadorPlayer==strlen(arrayColores)-1){
-									game=true;
-									modo_secuencia_colores=true;
-									modo_input_player=false;
-									modo_touch=true;
-									puntos=puntos+aumentaPuntos;
-									firstTimeMSC=true;
+									true_color();
 								}
 								contadorPlayer++;
 							}
 							else{
-								game=true;
 								playSound('X');
 								modo_game_over=true;
 							}
@@ -787,17 +733,11 @@ void manejaControles()
 							playSound('P');
 							if(arrayColores[contadorPlayer]=='P'){
 								if(contadorPlayer==strlen(arrayColores)-1){
-									game=true;
-									modo_secuencia_colores=true;
-									modo_input_player=false;
-									modo_touch=true;
-									puntos=puntos+aumentaPuntos;
-									firstTimeMSC=true;
+									true_color();
 								}
 								contadorPlayer++;
 							}
 							else{
-								game=true;
 								playSound('X');
 								modo_game_over=true;
 							}
@@ -808,17 +748,11 @@ void manejaControles()
 							playSound('O');
 							if(arrayColores[contadorPlayer]=='O'){
 								if(contadorPlayer==strlen(arrayColores)-1){
-									game=true;
-									modo_secuencia_colores=true;
-									modo_input_player=false;
-									modo_touch=true;
-									puntos=puntos+aumentaPuntos;
-									firstTimeMSC=true;
+									true_color();
 								}
 								contadorPlayer++;
 							}
 							else{
-								game=true;
 								playSound('X');
 								modo_game_over=true;
 							}
@@ -829,17 +763,11 @@ void manejaControles()
 							playSound('V');
 							if(arrayColores[contadorPlayer]=='V'){
 								if(contadorPlayer==strlen(arrayColores)-1){
-									game=true;
-									modo_secuencia_colores=true;
-									modo_input_player=false;
-									modo_touch=true;
-									puntos=puntos+aumentaPuntos;
-									firstTimeMSC=true;
+									true_color();
 								}
 								contadorPlayer++;
 							}
 							else{
-								game=true;
 								playSound('X');
 								modo_game_over=true;
 							}
@@ -850,17 +778,11 @@ void manejaControles()
 							playSound('C');
 							if(arrayColores[contadorPlayer]=='C'){
 								if(contadorPlayer==strlen(arrayColores)-1){
-									game=true;
-									modo_secuencia_colores=true;
-									modo_input_player=false;
-									modo_touch=true;
-									puntos=puntos+aumentaPuntos;
-									firstTimeMSC=true;
+									true_color();
 								}
 								contadorPlayer++;
 							}
 							else{
-								game=true;
 								playSound('X');
 								modo_game_over=true;
 							}
