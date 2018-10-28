@@ -49,6 +49,7 @@ bool firstTime;
 bool firstTimeMSC;
 bool salir;
 
+void true_color();
 void loadIniVars();
 void playSound(char color);
 void turnONcolor(char color);
