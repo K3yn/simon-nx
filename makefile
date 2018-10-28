@@ -38,8 +38,8 @@ INCLUDES	:= include
 EXEFS_SRC	:= exefs_src
 ROMFS       := romfs
 APP_TITLE   := SIMON-NX
-APP_AUTHOR  := unx
-APP_VERSION := 0.1
+APP_AUTHOR  := keyn
+APP_VERSION := 0.2
 ICON		:= romfs/resources/icon.jpg
 
 #---------------------------------------------------------------------------------
