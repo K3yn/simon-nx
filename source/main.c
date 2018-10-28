@@ -667,20 +667,17 @@ void manejaControles()
 						}			
 					}
 					else if(kUp & KEY_B){
-					color=' ';
-					if(arrayColores[contadorPlayer]=='B'){
-						if(contadorPlayer==strlen(arrayColores)-1){
-							true_color();
+						color=' ';
+						if(arrayColores[contadorPlayer]=='B'){
+							if(contadorPlayer==strlen(arrayColores)-1){
+								true_color();
+							}
+							contadorPlayer++;
 						}
-						contadorPlayer++;
-					}
-					else{
-						playSound('X');
-						modo_game_over=true;
-					}
-					}
-					else if(kDown & KEY_L){//
-						fcGameOver();limpiaArrayColores();
+						else{
+							playSound('X');
+							modo_game_over=true;
+						}
 					}
 				}
 				else if(game50)
