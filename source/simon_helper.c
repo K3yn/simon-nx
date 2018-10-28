@@ -170,7 +170,6 @@ void playSound(char color){
 	{
 		SDL_Delay(250);
 	}	
-
 	// hacemos la pausa para que suene la musica
     Mix_FreeMusic(music);
 }
