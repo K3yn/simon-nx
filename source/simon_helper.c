@@ -46,6 +46,15 @@ void loadIniVars(){
 	salir=false;
 	semaforo=true;	
 }
+
+void true_color(){
+	modo_secuencia_colores=true;
+	modo_input_player=false;
+	modo_touch=true;
+	puntos=puntos+aumentaPuntos;
+	firstTimeMSC=true;
+}
+
 void playSound(char color){
 	static const char *color_sound;
 	if(modoAudio==4 || modoAudio==5)
@@ -178,46 +187,40 @@ if (entrada[ind]!='\0' || modelo[ind]!='\0')
 return true;
 }
 void secuenciaColores(){
-// Secuencia de colores. El contador va de 0 a 3 y se resetea
+	//
 	if(semaforo)
 	{	if(bucleSecuencia%2==0)
 		{
 			if(contSecuencia==0)
 			{
 				color='G';
-				contSecuencia++;
 			}
 			else if(contSecuencia==1)
 			{
-			color='R';
-			contSecuencia++;
+				color='R';
 			}
 			else if(contSecuencia==2)
 			{
-			color='B';
-			contSecuencia++;
+				color='B';
 			}
 			else if(contSecuencia==3)
 			{
-			color='Y';
-			contSecuencia++;
-			contSecuencia=0;
+				color='Y';
 			}
-			
-			if(bucleSecuencia==4)
+
+			if(bucleSecuencia==10)
 			{
 				bucleSecuencia=0;
 			}
-		}
-		bucleSecuencia++;
+			contSecuencia++;
+		}else{color=' ';}
+		
 	}
-	
-	if(vecesSecuencia==8)
+	bucleSecuencia++;
+	if(contSecuencia==20)
 	{
 		semaforo=false;
-		color=' ';
 	}
-	vecesSecuencia++;
 }
 void fcGameOver(){
 
