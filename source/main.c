@@ -421,7 +421,7 @@ void manejaControles()
 					modo_color_random=true;
 					playSound('A');
 				}
-				else if((kUp & KEY_A) && (contMenuModos==2))//
+				else if((kUp & KEY_A) && (contMenuModos==1))//
 				{
 					playSound('A');
 					selectorModo=false;
@@ -431,7 +431,7 @@ void manejaControles()
 					modoAudio=8;
 					modo_color_random=true;
 				}
-				else if((kUp & KEY_A) && (contMenuModos==3))// 
+				else if((kUp & KEY_A) && (contMenuModos==2))// 
 				{
 					selectorModo=false;
 					modo_juego=true;
