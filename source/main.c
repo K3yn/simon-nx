@@ -194,35 +194,6 @@ void displayJuego(){
 						break;						
 					default:
 						break;	
-				}
-				switch(contColorM8)
-				{
-					case 0:
-						renderTexture(colorM8_on[0].texture, renderer, 0, 0, 410, 35, 204, 202);//green
-						break;
-					case 1:
-						renderTexture(colorM8_on[1].texture, renderer, 0, 0, 645, 35, 204, 202);//yellow
-						break;
-					case 2:
-						renderTexture(colorM8_on[2].texture, renderer, 0, 0, 760, 145, 202, 204);//orange
-						break;
-					case 3:
-						renderTexture(colorM8_on[3].texture, renderer, 0, 0, 760, 380, 204, 202);//red
-						break;	
-					case 4:
-						renderTexture(colorM8_on[4].texture, renderer, 0, 0, 645, 495, 204, 202);//violet
-						break;
-					case 5:
-						renderTexture(colorM8_on[5].texture, renderer, 0, 0, 410, 495, 204, 202);//pink
-						break;
-					case 6:
-						renderTexture(colorM8_on[6].texture, renderer, 0, 0, 300, 380, 204, 204);//blue
-						break;						
-					case 7:
-						renderTexture(colorM8_on[7].texture, renderer, 0, 0, 300, 145, 204, 202);//cyan
-						break;
-					default:
-						break;							
 				}			
 			}			
 			marcador();
@@ -240,10 +211,8 @@ void displayJuego(){
 				SDL_DrawText(renderer, Roboto_large, 530, 330, WHITE, "GAME OVER");
 				//
 			}
-			
 		}
-		//DEBUG
-		//SDL_DrawText(renderer, Roboto_large, 130, 680, BLACK, arrayColores);	
+		//SDL_DrawText(renderer, Roboto_large, 130, 680, BLACK, arrayColores);//DEBUG
 	}
 	else if(modo_highScores)
 	{	
