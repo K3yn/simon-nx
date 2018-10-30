@@ -978,8 +978,13 @@ int main(int argc, char **argv)
 		manejaControles();		
 		displayJuego();
     }
-	romfsExit();
-	TTF_Quit();
-	SDL_Quit();
+	
+SDL_DestroyWindow(window);//
+	
+TTF_Quit();
+romfsExit();
+IMG_Quit();
+SDL_Quit();
+	
 return 0;
 }
