@@ -446,7 +446,7 @@ void manejaControles()
 				if ((kDown & KEY_TOUCH && inBox(Stylus, 505, 65, 785, 200)))//green
 				{
 					newContMenuModos=0;
-					playSound('N');
+					
 					if (contMenuModos == newContMenuModos)
 					{
 						selectorModo=false;
