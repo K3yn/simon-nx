@@ -349,12 +349,12 @@ void manejaControles()
 				
 				if (contMenuMain == newContMenuMain)
 				{
-					playSound('N');
+					playSound('X');
 					salir=true;
 				}
 				else
 				{
-					playSound('X');
+					playSound('N');
 					contMenuMain = newContMenuMain;
 				}
 			}
