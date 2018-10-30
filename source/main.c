@@ -324,7 +324,6 @@ void manejaControles()
 			}
 			
 			//
-
 			u8 newContMenuMain;
 			if ((kDown & KEY_TOUCH && inBox(Stylus, 505, 65, 785, 200)))//green
 			{
@@ -979,7 +978,8 @@ int main(int argc, char **argv)
 		manejaControles();		
 		displayJuego();
     }
-
-SDL_Quit();
+	romfsExit();
+	TTF_Quit();
+	SDL_Quit();
 return 0;
 }
